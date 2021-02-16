@@ -60,13 +60,13 @@ pipeline {
                 echo 'Deploying...'
             }
         }
-        stage('Wipe workspace') {
-            // packer build
-            steps {
-                echo 'REmoving build files...'
-                powershell script: 'Start-Sleep -Seconds 30'
-                powershell script: 'Get-childitem -Recurse | Remove-Item -Recurse -Force'
-            }
-        }
+        // stage('Wipe workspace') {
+        //     // wipe workspace
+        //     steps {
+        //         echo 'Removing build files...'
+        //         powershell script: 'Start-Sleep -Seconds 30'
+        //         powershell script: 'Get-childitem -Recurse | Remove-Item -Recurse -Force'
+        //     }
+        // }
     }
 }
