@@ -18,6 +18,7 @@ pipeline {
                 foreach (\$build in \$builds){
                     Write-Output "Creating folder --> \$build"
                     [void](New-Item -ItemType Directory -Name \$build -ErrorAction Ignore)
+                    [void](New-Item -ItemType Directory -Name "answerFiles" -path ".\\$build" -ErrorAction Ignore)
                 }
                 """
                 // copy script folders
