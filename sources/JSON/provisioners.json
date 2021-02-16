@@ -1,0 +1,26 @@
+{
+    "provisioners": [
+        {
+            "type": "powershell",
+            "scripts": [
+                "./localScripts/choco_installs.ps1"
+            ]
+        },
+        {
+            "type": "powershell",
+            "scripts": [
+                "./localScripts/set-sysprep.ps1"
+            ]
+        },
+        {
+            "type": "windows-shell",
+            "inline": [
+                "C:/windows/system32/sysprep/sysprep.exe /generalize /oobe /unattend:C:/Windows/Panther/unattend.xml /quiet /reboot"
+            ]
+        },
+        {
+            "type": "windows-restart",
+            "restart_timeout": "30m"
+        }
+    ]
+}

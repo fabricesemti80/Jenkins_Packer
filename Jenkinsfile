@@ -7,14 +7,21 @@ pipeline {
             // here we create the build environment, preparing the work files for each selectd build
             steps {
                 echo 'Building..'
+                // where are we
                 powershell """
                 \$location = Get-location
                 Write-Output "My location is \$location"
+                """
+                // create build files
+                powershell """
                 \$builds = @(${BUILDS})
                 foreach (\$build in \$builds){
                     Write-Output "Building --> \$build"
+                    New-Item -ItemType Directory -Name \$build -ErrorAction Ignore
                 }
                 """
+                // ensure file structure is correct
+                cmd tree
             }
         }
         stage('Cleanup') {
