@@ -56,7 +56,7 @@ pipeline {
             // packer build
             steps {
                 echo 'Cleaning up...'
-                powershell script: "Start-Sleep -Seconds 30"
+                powershell script: 'Start-Sleep -Seconds 30'
                 powershell script: 'Get-childitem -Recurse | Remove-Item -Recurse -Force'
             }
         }
