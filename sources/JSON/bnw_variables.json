@@ -14,7 +14,7 @@
         "vm-cpu-num": "2"
     },
     "sensitive-variables": [
-        "vsphere_password",
-        "winadmin_password"
+        "vsphere-password",
+        "winadmin-password"
     ]
 }
