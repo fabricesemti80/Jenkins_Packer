@@ -54,8 +54,9 @@ pipeline {
                     echo 'Removing templates'
                     powershell """
                     \$builds = @(${BUILDS})
-                    \$vCenterCred = ${VCENTER_CRED}
-                    .\\Remove-Templates.ps1 -vCenterCred \$vCenterCred -builds \$builds
+                    # \$vCenterCred = ${VCENTER_CRED}
+                    # .\\Remove-Templates.ps1 -vCenterCred \$vCenterCred -builds \$builds
+                    .\\Remove-Templates.ps1 -vCenterAdmin $env:VCENTER_ADMIN -vCenterPwd $env:VCENTER_PWD -builds \$builds
                     """
                 }
             }

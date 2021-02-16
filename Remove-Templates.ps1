@@ -12,9 +12,9 @@
 [OutputType([int])]
 param(
     [Parameter(Mandatory = $false)][string]$vCenterServer = 'bnwvcsa01.westcoast.co.uk',
-    [Parameter(Mandatory = $false)][PSCredential]$vCenterCred,
-    # [Parameter(Mandatory)][string]$vCenterAdmin,
-    # [Parameter(Mandatory)][string]$vCenterPwd,
+    [Parameter(Mandatory = $false, ParameterSetName = 'withCredential')][PSCredential]$vCenterCred,
+    [Parameter(Mandatory, ParameterSetName = 'withUnamePassword')][string]$vCenterAdmin,
+    [Parameter(Mandatory, ParameterSetName = 'withUnamePassword')][string]$vCenterPwd,
     [Parameter(Mandatory)][array]$builds
 )
 begin {
@@ -25,8 +25,10 @@ begin {
 }
 process {
     #region CONNECT TO vCenter
-    # $vCenterSecurePwd = (ConvertTo-SecureString $vCenterPwd -AsPlainText -Force)
-    # $vCenterCred = New-Object System.Management.Automation.PSCredential -ArgumentList $vCenterAdmin, $vCenterSecurePwd
+    if (-not $vCenterCred) {
+        $vCenterSecurePwd = (ConvertTo-SecureString $vCenterPwd -AsPlainText -Force)
+        $vCenterCred = New-Object System.Management.Automation.PSCredential -ArgumentList $vCenterAdmin, $vCenterSecurePwd
+    }
     Set-PowerCLIConfiguration -InvalidCertificateAction Ignore -Confirm:$false
     try {
         Connect-VIServer -Server $vCenterServer -Protocol https -Credential $vCenterCred
