@@ -52,6 +52,7 @@ pipeline {
                 withCredentials([usernameColonPassword(credentialsId: 'b1d1ccf9-1ab1-4ff6-9f2c-3a2a09bbd91d', variable: 'VCENTER_CRED')]) {
                     echo 'Removing templates'
                     powershell """
+                    \$builds = @(${BUILDS})
                     \$vCenterCred = ${VCENTER_CRED}
                     .\\Remove-Templates.ps1 -vCenterCred \$vCenterCred -builds \$builds
                     """
