@@ -2,7 +2,7 @@
 pipeline {
     agent any
     environment {
-        VCENTER_CRED_FILE = 'D:/Jenkins/Jenkins_Packer/Creds/administrator_vsphere_local_cred.xml'
+        VCENTER_CRED_FILE = 'D:\\Jenkins\\Jenkins_Packer\\Creds\\administrator_vsphere_local_cred.xml'
     }
     stages {
         stage('Build') {

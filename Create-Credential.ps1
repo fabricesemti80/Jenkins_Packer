@@ -8,7 +8,7 @@ param(
 begin {
     $ErrorActionPreference = [System.Management.Automation.ActionPreference]::Stop
     $CurrentPath = Split-Path -Parent $PSCommandPath
-    $credXML = $CurrentPath + '\' + $(($user -replace '@', '_') -replace '\.', '_') + '_cred.xml'
+    $credXML = $CurrentPath + '\' + 'creds' + '\' + $(($user -replace '@', '_') -replace '\.', '_') + '_cred.xml'
 }
 process {
     $Credential = Get-Credential -UserName $user
