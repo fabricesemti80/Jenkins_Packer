@@ -6,8 +6,10 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building..'
-                echo 'We are here:'
-                powershell script: "Get-Location"
+                powershell """
+                \$location = Get-location
+                Write-Output "My location is \$location"
+                """
             }
         }
         stage('Test') {
