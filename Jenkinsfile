@@ -18,10 +18,12 @@ pipeline {
                 foreach (\$build in \$builds){
                     Write-Output "Building --> \$build"
                     New-Item -ItemType Directory -Name \$build -ErrorAction Ignore
+                    \$buildfile = \$build + '_file.json'
+                    New-item -Itemtype File -Name \$buildfile -Path \$build
                 }
                 """
                 // ensure file structure is correct
-                bat script: 'tree'
+                bat script: 'dir /s'
             }
         }
         stage('Cleanup') {
