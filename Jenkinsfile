@@ -21,7 +21,7 @@ pipeline {
                 }
                 """
                 // ensure file structure is correct
-                cmd 'tree'
+                bat script: 'tree'
             }
         }
         stage('Cleanup') {
