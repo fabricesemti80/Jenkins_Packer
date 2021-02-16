@@ -13,6 +13,7 @@ pipeline {
                 powershell """
                 \$location = Get-location
                 Write-Output "My location is \$location"
+                Get-ChildItem -Path Env:
                 """
                 // create build folder
                 powershell """
