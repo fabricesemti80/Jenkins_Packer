@@ -1,6 +1,9 @@
 /* groovylint-disable CompileStatic, LineLength */
 pipeline {
     agent any
+    environment {
+        VCENTER_CRED_FILE = 'D:/Jenkins/Jenkins_Packer/Creds/administrator_vsphere_local_cred.xml'
+    }
     stages {
         stage('Build') {
             // here we create the build environment, preparing the work files for each selectd build
@@ -47,7 +50,10 @@ pipeline {
             // removing vm templates
             steps {
                 echo 'Removing templates'
-                powershell script: '.\\Remove-Templates.ps1 -vCenterServer ${VCENTER_SERVER} -vCenterAdmin ${VCENTER_ADMIN} -vCenterPwd ${VCENTER_PWD} -builds \$builds'
+                powershell """
+                    \$vCenterCred = Import-clixml -Path ${VCENTER_CRED_FILE}
+                    .\\Remove-Templates.ps1 -vCenterCred \$vCenterCred -builds \$builds
+                """
             }
         }
         stage('Test') {
