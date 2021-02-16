@@ -1,9 +1,9 @@
 /* groovylint-disable CompileStatic, LineLength */
 pipeline {
     agent any
-    environment {
-        VCENTER_CRED_FILE = 'D:\\Jenkins\\Jenkins_Packer\\Creds\\administrator_vsphere_local_cred.xml'
-    }
+    // environment {
+    //     VCENTER_CRED_FILE = 'D:\\Jenkins\\Jenkins_Packer\\Creds\\administrator_vsphere_local_cred.xml'
+    // }
     stages {
         stage('Build') {
             // here we create the build environment, preparing the work files for each selectd build
@@ -49,11 +49,13 @@ pipeline {
         stage('Cleanup-templates') {
             // removing vm templates
             steps {
-                echo 'Removing templates'
-                powershell """
-                    \$vCenterCred = Import-clixml -Path ${VCENTER_CRED_FILE}
+                withCredentials([usernameColonPassword(credentialsId: 'b1d1ccf9-1ab1-4ff6-9f2c-3a2a09bbd91d', variable: 'VCENTER_CRED')]) {
+                    echo 'Removing templates'
+                    powershell """
+                    \$vCenterCred = ${VCENTER_CRED}
                     .\\Remove-Templates.ps1 -vCenterCred \$vCenterCred -builds \$builds
-                """
+                    """
+                }
             }
         }
         stage('Test') {
@@ -68,12 +70,12 @@ pipeline {
                 echo 'Deploying...'
             }
         }
-        // stage('Cleanup-Workspace') {
-        //     // wipe workspace
-        //     steps {
-        //         echo 'Cleaning up previous runs build files...'
-        //         powershell script: 'Get-childitem -Recurse | Remove-Item -Recurse -Force'
-        //     }
-        // }
+    // stage('Cleanup-Workspace') {
+    //     // wipe workspace
+    //     steps {
+    //         echo 'Cleaning up previous runs build files...'
+    //         powershell script: 'Get-childitem -Recurse | Remove-Item -Recurse -Force'
+    //     }
+    // }
     }
 }
