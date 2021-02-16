@@ -24,7 +24,7 @@ pipeline {
                 """
                 // ensure file structure is correct
                 //bat script: 'dir /s'
-                powershell script: '(Get-childitem -recourse).FullName'
+                powershell script: '(Get-childitem -recourse | where-object {$_ -notlike "*git*"}).FullName'
             }
         }
         stage('Cleanup') {
