@@ -1,17 +1,12 @@
-/* groovylint-disable CompileStatic */
+/* groovylint-disable CompileStatic, LineLength */
 pipeline {
     agent any
     stages {
-        stage('Pre-work cleanup') {
+        stage('Preparation') {
             // wipe workspace
             steps {
                 echo 'Cleaning up previous runs build files...'
                 powershell script: 'Get-childitem -Recurse | Remove-Item -Recurse -Force'
-            }
-            steps {
-                echo 'Removing templates'
-                powershell script: '.\\Remove-Templates.ps1 -vCenterServer ${VCENTER_SERVER} -vCenterAdmin ${VCENTER_ADMIN} -vCenterPwd ${VCENTER_PWD} -builds \$builds'
-            }
         }
         stage('Build') {
             // here we create the build environment, preparing the work files for each selectd build
@@ -57,9 +52,9 @@ pipeline {
         stage('Cleanup templates') {
             // removing vm templates
             steps {
-                echo 'Cleaning up templates..'
+                echo 'Removing templates'
+                powershell script: '.\\Remove-Templates.ps1 -vCenterServer ${VCENTER_SERVER} -vCenterAdmin ${VCENTER_ADMIN} -vCenterPwd ${VCENTER_PWD} -builds \$builds'
             }
-        }
         stage('Test') {
             // packer validate
             steps {
