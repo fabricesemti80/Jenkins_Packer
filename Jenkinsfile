@@ -2,13 +2,6 @@
 pipeline {
     agent any
     stages {
-        stage('Preparation') {
-            // wipe workspace
-            steps {
-                echo 'Cleaning up previous runs build files...'
-                powershell script: 'Get-childitem -Recurse | Remove-Item -Recurse -Force'
-            }
-        }
         stage('Build') {
             // here we create the build environment, preparing the work files for each selectd build
             steps {
@@ -50,7 +43,7 @@ pipeline {
                 powershell script: '(Get-childitem -recurse | where-object {$_ -notlike "*git*"}).FullName'
             }
         }
-        stage('Cleanup templates') {
+        stage('Cleanup-templates') {
             // removing vm templates
             steps {
                 echo 'Removing templates'
@@ -69,5 +62,12 @@ pipeline {
                 echo 'Deploying...'
             }
         }
+        // stage('Cleanup-Workspace') {
+        //     // wipe workspace
+        //     steps {
+        //         echo 'Cleaning up previous runs build files...'
+        //         powershell script: 'Get-childitem -Recurse | Remove-Item -Recurse -Force'
+        //     }
+        // }
     }
 }
