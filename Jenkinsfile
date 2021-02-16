@@ -5,8 +5,8 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                echo 'Building..'
-                echo 'We are here:'
+                echo 'Building..',
+                echo 'We are here:',
                 pwd
             }
         }
