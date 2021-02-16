@@ -6,6 +6,8 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building..'
+                echo 'We are here:'
+                pwd
             }
         }
         stage('Test') {
