@@ -23,7 +23,8 @@ pipeline {
                 }
                 """
                 // ensure file structure is correct
-                bat script: 'dir /s'
+                //bat script: 'dir /s'
+                powershell script: '(Get-childitem -recourse).FullName'
             }
         }
         stage('Cleanup') {
