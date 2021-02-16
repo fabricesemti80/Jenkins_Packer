@@ -34,7 +34,7 @@ pipeline {
                 powershell script: '(Get-childitem -recurse | where-object {$_ -notlike "*git*"}).FullName'
             }
         }
-        stage('Cleanup') {
+        stage('Cleanup templates') {
             // removing vm templates
             steps {
                 echo 'Cleaning up templates..'
@@ -52,10 +52,10 @@ pipeline {
                 echo 'Deploying...'
             }
         }
-        stage('Cleanup') {
+        stage('Wipe workspace') {
             // packer build
             steps {
-                echo 'Cleaning up...'
+                echo 'REmoving build files...'
                 powershell script: 'Start-Sleep -Seconds 30'
                 powershell script: 'Get-childitem -Recurse | Remove-Item -Recurse -Force'
             }
