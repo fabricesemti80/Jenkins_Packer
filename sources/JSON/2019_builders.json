@@ -19,8 +19,8 @@
             "folder": "{{user `vsphere-folder`}}",
             "floppy_img_path": "[BN001-Local-DataStore01] contentlib-a036a42c-4504-44db-9d1a-3e9550954bf7/2b074347-88e4-408e-b228-d890308fa96d/pvscsi_88204189-95a8-4dbc-8fdb-8b4249c07c6f.flp",
             "floppy_files": [
-                "./scripts/",
-                "./answerfile/"
+                "./remoteScripts/",
+                "./answerFiles/"
             ],
             "disk_thin_provisioned": true,
             "disk_size": "{{user `vm-disk-size`}}",
@@ -30,7 +30,11 @@
             "CPUs": "{{user `vm-cpu-num`}}",
             "convert_to_template": "true",
             "communicator": "winrm",
-            "cluster": "{{user `vsphere-cluster`}}"
+            "cluster": "{{user `vsphere-cluster`}}",
+            "iso_paths": [
+                "[BN001-Local-DataStore01] contentlib-a036a42c-4504-44db-9d1a-3e9550954bf7/2baac3c5-97b0-439c-aece-3b053e82b149/SW_DVD9_Win_Server_STD_CORE_2019_1809.11_64Bit_English_DC_STD_MLF_X22-51041_6afb1d25-5be2-4774-b071-77c349beb238.ISO",
+                "[BN001-Local-DataStore01] contentlib-a036a42c-4504-44db-9d1a-3e9550954bf7/5bd0d88d-9817-4c54-ae04-95be5e9212b9/VMware-Tools-Windows-11_0_1-14773994_a816dc3a-6df1-42ff-9332-e7fcd8829d88.iso"
+            ]
         }
     ]
 }

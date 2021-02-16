@@ -31,11 +31,11 @@ pipeline {
                 powershell """
                 \$builds = @(${BUILDS})
                 \$clusters = @(${CLUSTERS})
-
                 foreach (\$build in \$builds){
                     foreach (\$cluster in \$clusters)
                     {
                         .\\Create-JSON.ps1 -buildFolder \$build -buildName \$build -cluster \$cluster
+                    }
                 }
                 """
                 // ensure file structure is correct
