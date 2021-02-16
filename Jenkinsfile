@@ -5,9 +5,9 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                echo 'Building..',
-                echo 'We are here:',
-                pwd
+                echo 'Building..'
+                echo 'We are here:'
+                powershell script: "Get-Location"
             }
         }
         stage('Test') {
