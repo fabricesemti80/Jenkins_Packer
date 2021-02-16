@@ -27,6 +27,17 @@ pipeline {
                     .\\Copy-Sources.ps1 -buildFolder \$build
                 }
                 """
+                // prepare JSON files
+                powershell """
+                \$builds = @(${BUILDS})
+                \$clusters = @(${CLUSTERS})
+
+                foreach (\$build in \$builds){
+                    foreach (\$cluster in \$clusters)
+                    {
+                        .\\Create-JSON.ps1 -buildFolder \$build -buildName \$build -cluster \$cluster
+                }
+                """
                 // ensure file structure is correct
                 powershell script: '(Get-childitem -recurse | where-object {$_ -notlike "*git*"}).FullName'
             }
