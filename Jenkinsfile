@@ -24,10 +24,7 @@ pipeline {
                 powershell """
                 \$builds = @(${BUILDS})
                 foreach (\$build in \$builds){
-                    Write-Output "Copying source files --> \$build\\localScripts"
-                    Copy-Item -Path "\.\\sources\\localScripts" -Destination "\$build\\localScripts" -Recurse
-                    Write-Output "Copying source files --> \$build\\remoteScripts"
-                    Copy-Item -Path "\.\\sources\\localScripts" -Destination "\$build\\remoteScripts" -Recurse
+                    Copy-Sources -buildFolder \$build
                 }
                 """
                 // ensure file structure is correct
