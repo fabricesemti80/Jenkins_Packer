@@ -27,7 +27,7 @@ pipeline {
                     .\\Copy-Sources.ps1 -buildFolder \$build
                 }
                 """
-                // prepare JSON files
+                // prepare JSON & XML files
                 powershell """
                 \$builds = @(${BUILDS})
                 \$clusters = @(${CLUSTERS})
@@ -35,6 +35,7 @@ pipeline {
                     foreach (\$cluster in \$clusters)
                     {
                         .\\Create-JSON.ps1 -buildFolder \$build -buildName \$build -cluster \$cluster
+                        .\\Create-XML.ps1 -buildFolder \$build -buildName \$build -cluster \$cluster
                     }
                 }
                 """

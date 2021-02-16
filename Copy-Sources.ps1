@@ -9,10 +9,7 @@ param(
     $folder1 = 'localScripts',
     [Parameter(Mandatory = $false)]
     [string]
-    $folder2 = 'remoteScripts',
-    [Parameter(Mandatory = $false)]
-    [string]
-    $folder3 = 'answerFiles'    
+    $folder2 = 'remoteScripts'  
 )
 begin {
     $ErrorActionPreference = [System.Management.Automation.ActionPreference]::Stop
@@ -21,7 +18,6 @@ begin {
 process {
     Copy-Item -Path ".\sources\$folder1" -Destination "$buildFolder\$folder1" -Recurse
     Copy-Item -Path ".\sources\$folder2" -Destination "$buildFolder\$folder2" -Recurse
-    Copy-Item -Path ".\sources\$folder3" -Destination "$buildFolder\$folder3" -Recurse
 }
 end {
 }

@@ -32,32 +32,21 @@ begin {
 process {
 
     # source files
-    $2019builders = '.\sources\JSON\2019_builders.json'
-    $baseProvisioners = '.\sources\JSON\base_provisioners.json'
-    $variables = '.\sources\JSON\bnw_variables.json'
-    if ($cluster -match 'bnw') {
-        # bnw cluster 
-        $variables = '.\sources\JSON\bnw_variables.json'
-    }
-    else {
-        # alw cluster
-        $variables = '.\sources\JSON\anw_variables.json'
-    }
+    $sourceAnswerFile = '.\sources\answerFiles\autounattend.xml'
     # build file
-    $buildJSON = '.\' + $buildName + '\' + $date + '_build.json'
+    $buildXML = '.\' + $buildName + '\' + 'answerFiles' + '\' + 'autounattend.xml'
+
+    $editionSelector = '/IMAGE/NAME'
+
     # notify
-    Write-Host "Building template JSON: $buildname"; 
+    Write-Host "Building template XML: $buildname"; 
     Write-Host "Deployment cluster: $cluster" ;    
 
     switch (${buildName}) {
         '2019_core' {
-            # merge and save the powershell file
-            
-            $data1 = Get-Content $2019builders -Raw | ConvertFrom-Json
-            $data2 = Get-Content $baseProvisioners -Raw | ConvertFrom-Json
-            $data3 = Get-Content $variables -Raw | ConvertFrom-Json
-            #
-            @($data1; $data2; $data3) | ConvertTo-Json -Depth 5 | Out-File $buildJSON
+            $productKey = '7FDQQ-NJWP6-YFXJ8-HDC9V-MBKRD'
+            $edition = 'Windows Server 2019 SERVERSTANDARDCORE'
+
             Break 
         }
         '2019_gui' {
@@ -76,6 +65,14 @@ process {
         }
     }
         
+    [xml]$XmlDocument = Get-Content $sourceAnswerFile
+    [xml]$newXmlDocument = $XmlDocument
+    # update activation key
+    ($newXmlDocument.unattend.settings.component | Where-Object { $_.Name -match 'Microsoft-Windows-Setup' }).userdata.productkey.key = $productKey
+    # update edition
+    ($newXmlDocument.unattend.settings.component | Where-Object { $_.Name -match 'Microsoft-Windows-Setup' }).imageinstall.osimage.installfrom.metadata.key = $editionSelector
+    ($newXmlDocument.unattend.settings.component | Where-Object { $_.Name -match 'Microsoft-Windows-Setup' }).imageinstall.osimage.installfrom.metadata.value = $edition
+    $newXmlDocument.save("$buildXML")
 }
     
 end {
