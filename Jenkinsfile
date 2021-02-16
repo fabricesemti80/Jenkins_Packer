@@ -7,6 +7,7 @@ pipeline {
             steps {
                 echo 'Cleaning up previous runs build files...'
                 powershell script: 'Get-childitem -Recurse | Remove-Item -Recurse -Force'
+            }
         }
         stage('Build') {
             // here we create the build environment, preparing the work files for each selectd build
@@ -55,6 +56,7 @@ pipeline {
                 echo 'Removing templates'
                 powershell script: '.\\Remove-Templates.ps1 -vCenterServer ${VCENTER_SERVER} -vCenterAdmin ${VCENTER_ADMIN} -vCenterPwd ${VCENTER_PWD} -builds \$builds'
             }
+        }
         stage('Test') {
             // packer validate
             steps {
@@ -67,13 +69,5 @@ pipeline {
                 echo 'Deploying...'
             }
         }
-        // stage('Wipe workspace') {
-        //     // wipe workspace
-        //     steps {
-        //         echo 'Removing build files...'
-        //         powershell script: 'Start-Sleep -Seconds 30'
-        //         powershell script: 'Get-childitem -Recurse | Remove-Item -Recurse -Force'
-        //     }
-        // }
     }
 }
