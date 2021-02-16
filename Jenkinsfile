@@ -24,7 +24,7 @@ pipeline {
                 powershell """
                 \$builds = @(${BUILDS})
                 foreach (\$build in \$builds){
-                    Copy-Sources -buildFolder \$build
+                    .\\Copy-Sources.ps1 -buildFolder \$build
                 }
                 """
                 // ensure file structure is correct
