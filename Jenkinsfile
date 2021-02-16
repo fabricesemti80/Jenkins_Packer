@@ -12,18 +12,25 @@ pipeline {
                 \$location = Get-location
                 Write-Output "My location is \$location"
                 """
-                // create build files
+                // create build folder
                 powershell """
                 \$builds = @(${BUILDS})
                 foreach (\$build in \$builds){
-                    Write-Output "Building --> \$build"
-                    New-Item -ItemType Directory -Name \$build -ErrorAction Ignore
-                    \$buildfile = \$build + '_file.json'
-                    New-item -Itemtype File -Name \$buildfile -Path \$build
+                    Write-Output "Creating folder --> \$build"
+                    [void](New-Item -ItemType Directory -Name \$build -ErrorAction Ignore)
+                }
+                """
+                // copy script folders
+                powershell """
+                \$builds = @(${BUILDS})
+                foreach (\$build in \$builds){
+                    Write-Output "Copying source files --> \$build\\localScripts"
+                    Copy-Item -Path "\\sources\\localScripts" -Destination "\$build\\localScripts" -Recurse
+                    Write-Output "Copying source files --> \$build\\remoteScripts"
+                    Copy-Item -Path "\\sources\\localScripts" -Destination "\$build\\remoteScripts" -Recurse
                 }
                 """
                 // ensure file structure is correct
-                //bat script: 'dir /s'
                 powershell script: '(Get-childitem -recurse | where-object {$_ -notlike "*git*"}).FullName'
             }
         }
@@ -42,7 +49,15 @@ pipeline {
         stage('Deploy') {
             // packer build
             steps {
-                echo 'Deploying....'
+                echo 'Deploying...'
+            }
+        }
+        stage('Cleanup') {
+            // packer build
+            steps {
+                echo 'Cleaning up...'
+                powershell script: "Start-Sleep -Seconds 30"
+                powershell script: 'Get-childitem -Recurse | Remove-Item -Recurse -Force'
             }
         }
     }

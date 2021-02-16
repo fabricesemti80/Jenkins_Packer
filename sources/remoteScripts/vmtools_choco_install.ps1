@@ -1,0 +1,1 @@
+C:\ProgramData\chocolatey\choco.exe install vmware-tools -y -f
