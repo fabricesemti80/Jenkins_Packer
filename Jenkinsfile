@@ -10,6 +10,10 @@ pipeline {
                 powershell """
                 \$location = Get-location
                 Write-Output "My location is \$location"
+                \$builds = @(${BUILDS})
+                foreach (\$build in \$builds){
+                    Write-Output "Building --> \$build"
+                }
                 """
             }
         }
