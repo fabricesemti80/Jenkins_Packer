@@ -23,6 +23,7 @@ param(
     [Parameter(Mandatory = $false)][switch] $build # if this switch is not enabled, the process will only validate
 )
 
+$date = Get-Date -Format yyyyMMdd
 $buildJSON = '.\' + $buildName + '\' + $date + '_build.json'
 
 switch ($buildName) {
