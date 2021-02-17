@@ -11,7 +11,7 @@ pipeline {
         stage('Build') {
             // here we create the build environment, preparing the work files for each selectd build
             steps {
-                echo 'Building..'
+                echo "\e[31mBuilding environment\e[0m\n"
                 // where are we
                 powershell """
                 \$location = Get-location
@@ -77,8 +77,9 @@ pipeline {
             steps {
                 echo 'Deploying...'
                     powershell """
-                    \$builds = @(${BUILDS})                    
-                    .\\PACKER-Builder.ps1 -vCenterPwd ${VCENTER_PWD} -localPwd ${LOCAL_PWD} -builds \$builds -deploy                     
+                    \$builds = @(${BUILDS}) 
+                    \$clusters = @(${CLUSTERS})                    
+                    .\\PACKER-Builder.ps1 -vCenterPwd ${VCENTER_PWD} -localPwd ${LOCAL_PWD} -builds \$builds -clusters \$clusters -deploy                     
                     """                
             }
         }
