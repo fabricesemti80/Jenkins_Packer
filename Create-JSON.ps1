@@ -15,7 +15,7 @@ param(
 
     [Parameter(Mandatory = $True)]
     [string] 
-    [ValidateSet('bnw', 'alx')]
+    [ValidateSet('bnw', 'alw')]
     $cluster
 
 )
@@ -68,53 +68,69 @@ begin {
 process {
 
     # source files
-    $2019builders = '.\sources\JSON\2019_builders.json'
+    $builders = '.\sources\JSON\builders.json'
     $baseProvisioners = '.\sources\JSON\base_provisioners.json'
-    $variables = '.\sources\JSON\bnw_variables.json'
-    if ($cluster -match 'bnw') {
-        # bnw cluster 
-        $variables = '.\sources\JSON\bnw_variables.json'
-    }
-    else {
-        # alw cluster
-        $variables = '.\sources\JSON\anw_variables.json'
-    }
-    # build file
-    $buildJSON = '.\' + $buildName + '\' + $date + '_build.json'
-    # notify
-    Write-Host "Building template JSON: $buildname"; 
-    Write-Host "Deployment cluster: $cluster" ;    
+    # $variables = '.\sources\JSON\bnw_variables.json'
 
-    switch (${buildName}) {
-        '2019_core' {
-            # merge and save the powershell file
-            
-            $data1 = Get-Content $2019builders -Raw | ConvertFrom-Json
-            $data2 = Get-Content $baseProvisioners -Raw | ConvertFrom-Json
-            $data3 = Get-Content $variables -Raw | ConvertFrom-Json
-            #
-            # @($data1; $data2; $data3) | ConvertTo-Json -Depth 5 | Out-File $buildJSON
-
-            $JSON = Json-Merge $data1 $data2
-            $JSON = Json-Merge $JSON $data3
-            $JSON | ConvertTo-Json -Depth 5 | Out-File $buildJSON -Encoding Ascii -Force
-            Break 
+    switch ($cluster) {
+        'bnw' {
+            $variables = '.\sources\JSON\bnw_variables.json'; break 
         }
-        '2019_gui' {
-            #
-            Break 
+        'alw' {
+            $variables = '.\sources\JSON\alw_variables.json'; break 
         }
-        '2016_core' {
-            #
-            Break 
-        }
-        '2016_bui' {
-            #
-            Break 
-        }                        
         Default {
+            Write-Output 'Unrecognized cluster!'
         }
     }
+
+
+    # if ($cluster -match 'bnw') {
+    #     # bnw cluster 
+    #     $variables = '.\sources\JSON\bnw_variables.json'
+    # }
+    # else {
+    #     # alw cluster
+    #     $variables = '.\sources\JSON\anw_variables.json'
+    # }
+    # build file
+    $buildJSON = '.\' + $buildName + '\' + $date + '_' + $cluster + '_build.json'
+    # notify
+    Write-Output "Building template JSON: $buildname"; 
+    Write-Output "Deployment cluster: $cluster" ;    
+
+    # switch -wildcard  (${buildName}) {
+    #     '2019*' {
+    # merge and save the powershell file
+            
+    $data1 = Get-Content $builders -Raw | ConvertFrom-Json
+    $data2 = Get-Content $baseProvisioners -Raw | ConvertFrom-Json
+    $data3 = Get-Content $variables -Raw | ConvertFrom-Json
+    #
+    # @($data1; $data2; $data3) | ConvertTo-Json -Depth 5 | Out-File $buildJSON
+
+    $JSON = Json-Merge $data1 $data2
+    $JSON = Json-Merge $JSON $data3
+    $JSON | ConvertTo-Json -Depth 5 | Out-File $buildJSON -Encoding Ascii -Force
+    #     Break 
+    # }
+    # '2016*' {
+    #     # merge and save the powershell file
+            
+    #     $data1 = Get-Content $builders -Raw | ConvertFrom-Json
+    #     $data2 = Get-Content $baseProvisioners -Raw | ConvertFrom-Json
+    #     $data3 = Get-Content $variables -Raw | ConvertFrom-Json
+    #     #
+    #     # @($data1; $data2; $data3) | ConvertTo-Json -Depth 5 | Out-File $buildJSON
+
+    #     $JSON = Json-Merge $data1 $data2
+    #     $JSON = Json-Merge $JSON $data3
+    #     $JSON | ConvertTo-Json -Depth 5 | Out-File $buildJSON -Encoding Ascii -Force
+    #     Break 
+    # }                     
+    # Default {
+    # }
+    #  }
         
 }
     

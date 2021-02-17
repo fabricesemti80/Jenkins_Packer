@@ -4,6 +4,9 @@ pipeline {
     // environment {
     //     VCENTER_CRED_FILE = 'D:\\Jenkins\\Jenkins_Packer\\Creds\\administrator_vsphere_local_cred.xml'
     // }
+    options {
+        ansiColor('xterm')
+    }    
     stages {
         stage('Build') {
             // here we create the build environment, preparing the work files for each selectd build
@@ -63,8 +66,9 @@ pipeline {
             steps {
                 echo 'Testing..'
                     powershell """
-                    \$builds = @(${BUILDS})                    
-                    .\\PACKER-Builder.ps1 -vCenterPwd ${VCENTER_PWD} -localPwd ${LOCAL_PWD} -builds \$builds                        
+                    \$builds = @(${BUILDS})    
+                    \$clusters = @(${CLUSTERS})                
+                    .\\PACKER-Builder.ps1 -vCenterPwd ${VCENTER_PWD} -localPwd ${LOCAL_PWD} -builds \$builds -clusters \$clusters
                     """
             }
         }

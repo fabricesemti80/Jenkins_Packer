@@ -15,7 +15,7 @@ param(
 
     [Parameter(Mandatory = $True)]
     [string] 
-    [ValidateSet('bnw', 'alx')]
+    [ValidateSet('bnw', 'alw')]
     $cluster
 
 )
@@ -42,7 +42,7 @@ process {
     Write-Host "Building template XML: $buildname"; 
     Write-Host "Deployment cluster: $cluster" ;    
 
-    switch (${buildName}) {
+    switch ($buildName) {
         '2019_core' {
             #$productKey = '7FDQQ-NJWP6-YFXJ8-HDC9V-MBKRD'
             $productKey = 'N69G4-B89J2-4G8F4-WWYCC-J464C'
@@ -53,16 +53,18 @@ process {
             #$productKey = '7FDQQ-NJWP6-YFXJ8-HDC9V-MBKRD'
             $productKey = 'N69G4-B89J2-4G8F4-WWYCC-J464C'
             $edition = 'Windows Server 2019 SERVERSTANDARD'
-            Break 
-            Break 
+            Break             
         }
         '2016_core' {
-            #
+            $productKey = 'JRYFV-RCN7X-6BH4H-JQGQ7-X77YC'
+            $edition = 'Windows Server 2019 SERVERSTANDARDCORE'
             Break 
+            
         }
-        '2016_bui' {
-            #
-            Break 
+        '2016_gui' {
+            $productKey = 'JRYFV-RCN7X-6BH4H-JQGQ7-X77YC'
+            $edition = 'Windows Server 2019 SERVERSTANDARD'
+            Break  
         }                        
         Default {
         }
