@@ -12,7 +12,6 @@
         "vsphere-datacenter": "BNW",
         "vsphere-datastore": "BN001-Local-DataStore01",
         "vsphere-folder": "bn-Templates",
-        "vsphere-password": "",
         "vsphere-server": "bnwvcsa01.westcoast.co.uk",
         "vsphere-user": "administrator@vsphere.local",
         "winadmin-user": "administrator"
