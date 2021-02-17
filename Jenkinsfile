@@ -10,6 +10,9 @@ pipeline {
     stages {
         stage('Build') {
             // here we create the build environment, preparing the work files for each selectd build
+            steps{
+                echo -e "\e[31mHello World\e[0m"
+            }
             steps {
                 echo 'Building..'
                 // where are we
@@ -46,7 +49,7 @@ pipeline {
                 }
                 """
                 // ensure file structure is correct
-                powershell script: '(Get-childitem -recurse | where-object {$_ -notlike "*git*"}).FullName'
+                // powershell script: '(Get-childitem -recurse | where-object {$_ -notlike "*git*"}).FullName'
             }
         }
         stage('Cleanup-templates') {

@@ -11,6 +11,9 @@ param(
     [Parameter(Mandatory = $false)][switch] $deploy # if this switch is not enabled, the process will only validate
 )
 
+$timeStamp = Get-Date -Format yyyy-MM-dd
+$note = "This template was created on $timeStamp using Packer!"
+
 foreach ($cluster in $clusters) {
     foreach ($buildName in $builds) {
     
@@ -56,17 +59,20 @@ foreach ($cluster in $clusters) {
             Write-Output "Deployment cluster: $cluster"
             Write-Output "Template file: $buildJSON"
 
-            Start-Process -FilePath 'packer.exe' -ArgumentList "build  -var `"vm_name=$($buildName)`" -var `"vsphere-user=$($vCenterAdmin)`" -var `"vsphere-password=$($vCenterPwd)`" -var `"winadmin-password=$($localPwd)`" $buildJSON" -Wait -NoNewWindow
+            Start-Process -FilePath 'packer.exe' -ArgumentList "build -force -var `"vm-note=$($note)`" -var `"vm_name=$($buildName)`" -var `"vsphere-user=$($vCenterAdmin)`" -var `"vsphere-password=$($vCenterPwd)`" -var `"winadmin-password=$($localPwd)`" $buildJSON" -Wait -NoNewWindow
         }
         else {
             # validate the template
             Write-Output "Validating build: $buildName"
             Write-Output "Deployment cluster: $cluster"
             Write-Output "Template file: $buildJSON"
-            
-            Start-Process -FilePath 'packer.exe' -ArgumentList "validate -var `"vm_name=$($buildName)`" -var `"vsphere-user=$($vCenterAdmin)`" -var `"vsphere-password=$($vCenterPwd)`" -var `"winadmin-password=$($localPwd)`" $buildJSON" -Wait -NoNewWindow
-        }
 
+            Start-Process -FilePath 'packer.exe' -ArgumentList "validate -var `"vm-note=$($note)`" -var `"vm_name=$($buildName)`" -var `"vsphere-user=$($vCenterAdmin)`" -var `"vsphere-password=$($vCenterPwd)`" -var `"winadmin-password=$($localPwd)`" $buildJSON" -Wait -NoNewWindow
+        }
+        # exited folder
+        Set-Location ..
+        $loc = Get-Location
+        Write-Output "Entered into folder $loc"
     }
 
  
