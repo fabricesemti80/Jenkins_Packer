@@ -57,13 +57,13 @@ process {
         }
         '2016_core' {
             $productKey = 'JRYFV-RCN7X-6BH4H-JQGQ7-X77YC'
-            $edition = 'Windows Server 2019 SERVERSTANDARDCORE'
+            $edition = 'Windows Server 2016 SERVERSTANDARDCORE'
             Break 
             
         }
         '2016_gui' {
             $productKey = 'JRYFV-RCN7X-6BH4H-JQGQ7-X77YC'
-            $edition = 'Windows Server 2019 SERVERSTANDARD'
+            $edition = 'Windows Server 2016 SERVERSTANDARD'
             Break  
         }                        
         Default {
