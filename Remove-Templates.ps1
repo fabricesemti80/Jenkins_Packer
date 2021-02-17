@@ -47,7 +47,7 @@ process {
         #region REMOVE TEMPLATES
         if ($oldTemplates) {
             foreach ($VMtemplate in $oldTemplates) {            
-                Remove-Template -Template $VMTemplate -Confirm:$false -Verbose -WhatIf
+                Remove-Template -Template $VMTemplate -Confirm:$false -Verbose # -WhatIf
             }
         }
         else {
