@@ -72,6 +72,10 @@ pipeline {
             // packer build
             steps {
                 echo 'Deploying...'
+                    powershell """
+                    \$builds = @(${BUILDS})                    
+                    .\\PACKER-Builder.ps1 -vCenterPwd ${VCENTER_PWD} -localPwd ${LOCAL_PWD} -builds \$builds -deploy                     
+                    """                
             }
         }
     // stage('Cleanup-Workspace') {

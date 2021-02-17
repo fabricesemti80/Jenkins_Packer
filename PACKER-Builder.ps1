@@ -21,7 +21,7 @@ param(
     # $localUser,
     # [Parameter(Mandatory)]
     $localPwd,
-    [Parameter(Mandatory = $false)][switch] $build # if this switch is not enabled, the process will only validate
+    [Parameter(Mandatory = $false)][switch] $deploy # if this switch is not enabled, the process will only validate
 )
 
 foreach ($buildName in $builds) {
@@ -36,7 +36,7 @@ foreach ($buildName in $builds) {
 
     switch ($buildName) {
         '2019_core' {
-            if ($build.ispresent) {
+            if ($deploy.ispresent) {
                 Write-Output 'We are building  template -> 2019 core server'  
             }
             else {
@@ -46,7 +46,7 @@ foreach ($buildName in $builds) {
     
         } 
         '2019_gui' {
-            if ($build.ispresent) {
+            if ($deploy.ispresent) {
                 Write-Output 'We are building  template -> 2019 desktop server'  
             }
             else {
@@ -62,7 +62,7 @@ foreach ($buildName in $builds) {
     }
     
     # # Base Image
-    if ($build.ispresent) {
+    if ($deploy.ispresent) {
         # build the template
         Start-Process -FilePath 'packer.exe' -ArgumentList "build  -var `"vm_name=$($buildName)`" -var `"vsphere-user=$($vCenterAdmin)`" -var `"vsphere-password=$($vCenterPwd)`" -var `"winadmin-password=$($localPwd)`" $buildJSON" -Wait -NoNewWindow
     }
