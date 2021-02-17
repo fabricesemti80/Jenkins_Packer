@@ -31,13 +31,12 @@ $i = 0
 
 do {
     Write-Host "ATTEMPT---> $i"
-    if ($chocov) {
-        Write-Output 'APP install commencing'
-        Install-Apps
-    }
-    else {
-        Install-Choco
+    if (-not $chocov) {
         Write-Output 'CHOCO install commencing'
+        Install-Choco
     }
     $i++
 } until (($null -ne $chocov) -or ($i -ge 5))
+
+Write-Output 'APP install commencing'
+Install-Apps
