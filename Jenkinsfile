@@ -65,7 +65,7 @@ pipeline {
                     powershell """
                     \$builds = @(${BUILDS})
                     foreach (\$build in \$builds){
-                    .\\PACKER-Builder.ps1 -vCenterPwd ${VCENTER_PWD} -localPwd ${LOCAL_PWD} -builds \$builds             
+                    .\\PACKER-Builder.ps1 -vCenterPwd ${VCENTER_PWD} -localPwd ${LOCAL_PWD} -buildName \$builds             
                     }
                     """
             }
