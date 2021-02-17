@@ -10,9 +10,6 @@ pipeline {
     stages {
         stage('Build') {
             // here we create the build environment, preparing the work files for each selectd build
-            steps{
-                echo -e "\e[31mHello World\e[0m"
-            }
             steps {
                 echo 'Building..'
                 // where are we
