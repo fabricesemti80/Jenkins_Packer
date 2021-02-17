@@ -1,40 +1,41 @@
 {
     "builders": [
         {
-            "winrm_username": "Administrator",
-            "winrm_timeout": "12h",
-            "winrm_password": "{{user `winadmin-password`}}",
-            "vcenter_server": "{{user `vsphere-server`}}",
-            "username": "{{user `vsphere-user`}}",
-            "type": "vsphere-iso",
-            "shutdown_timeout": "1h",
-            "shutdown_command": "shutdown /s /t 10 /f /d p:4:1 /c Packer_Provisioning_Shutdown",
-            "RAM": "{{user `vm-mem-size`}}",
-            "password": "{{user `vsphere-password`}}",
-            "notes": "Built using Packer",
-            "network_card": "vmxnet3",
-            "network": "{{user `vm-network`}}",
-            "insecure_connection": "true",
-            "guest_os_type": "windows9Server64Guest",
-            "folder": "{{user `vsphere-folder`}}",
-            "floppy_img_path": "[BN001-Local-DataStore01] contentlib-a036a42c-4504-44db-9d1a-3e9550954bf7/2b074347-88e4-408e-b228-d890308fa96d/pvscsi_88204189-95a8-4dbc-8fdb-8b4249c07c6f.flp",
+            "cluster": "{{user `vsphere-cluster`}}",
+            "communicator": "winrm",
+            "convert_to_template": "true",
+            "CPUs": "{{user `vm-cpu-num`}}",
+            "datacenter": "{{user `vsphere-datacenter`}}",
+            "datastore": "{{user `vsphere-datastore`}}",
+            "disk_controller_type": "pvscsi",
+            "disk_size": "{{user `vm-disk-size`}}",
+            "disk_thin_provisioned": true,
             "floppy_files": [
                 "./remoteScripts/",
                 "./answerFiles/"
             ],
-            "disk_thin_provisioned": true,
-            "disk_size": "{{user `vm-disk-size`}}",
-            "disk_controller_type": "pvscsi",
-            "datastore": "{{user `vsphere-datastore`}}",
-            "datacenter": "{{user `vsphere-datacenter`}}",
-            "CPUs": "{{user `vm-cpu-num`}}",
-            "convert_to_template": "true",
-            "communicator": "winrm",
-            "cluster": "{{user `vsphere-cluster`}}",
+            "floppy_img_path": "[BN001-Local-DataStore01] contentlib-a036a42c-4504-44db-9d1a-3e9550954bf7/2b074347-88e4-408e-b228-d890308fa96d/pvscsi_88204189-95a8-4dbc-8fdb-8b4249c07c6f.flp",
+            "folder": "{{user `vsphere-folder`}}",
+            "guest_os_type": "windows9Server64Guest",
+            "insecure_connection": "true",
             "iso_paths": [
                 "[BN001-Local-DataStore01] contentlib-a036a42c-4504-44db-9d1a-3e9550954bf7/2baac3c5-97b0-439c-aece-3b053e82b149/SW_DVD9_Win_Server_STD_CORE_2019_1809.11_64Bit_English_DC_STD_MLF_X22-51041_6afb1d25-5be2-4774-b071-77c349beb238.ISO",
                 "[BN001-Local-DataStore01] contentlib-a036a42c-4504-44db-9d1a-3e9550954bf7/5bd0d88d-9817-4c54-ae04-95be5e9212b9/VMware-Tools-Windows-11_0_1-14773994_a816dc3a-6df1-42ff-9332-e7fcd8829d88.iso"
-            ]
+            ],
+            "network": "{{user `vm-network`}}",
+            "network_card": "vmxnet3",
+            "notes": "Built using Packer",
+            "password": "{{user `vsphere-password`}}",
+            "RAM": "{{user `vm-mem-size`}}",
+            "shutdown_command": "shutdown /s /t 10 /f /d p:4:1 /c Packer_Provisioning_Shutdown",
+            "shutdown_timeout": "1h",
+            "type": "vsphere-iso",
+            "username": "{{user `vsphere-user`}}",
+            "vcenter_server": "{{user `vsphere-server`}}",
+            "vm_name": "{{user `vm_name`}}",
+            "winrm_password": "{{user `winadmin-password`}}",
+            "winrm_timeout": "12h",
+            "winrm_username": "Administrator"
         }
     ]
 }
