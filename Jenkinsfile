@@ -53,8 +53,6 @@ pipeline {
                     echo 'Removing templates'
                     powershell """
                     \$builds = @(${BUILDS})
-                    # \$vCenterCred = ${VCENTER_CRED}
-                    # .\\Remove-Templates.ps1 -vCenterCred \$vCenterCred -builds \$builds
                     .\\Remove-Templates.ps1 -vCenterAdmin ${VCENTER_ADMIN} -vCenterPwd ${VCENTER_PWD} -builds \$builds
                     """
                 }
@@ -66,8 +64,6 @@ pipeline {
                 echo 'Testing..'
                     powershell """
                     \$builds = @(${BUILDS})
-                    # \$vCenterCred = ${VCENTER_CRED}
-                    # .\\Remove-Templates.ps1 -vCenterCred \$vCenterCred -builds \$builds
                     .\\PACKER-Builder.ps1 -vCenterAdmin ${VCENTER_ADMIN} -vCenterPwd ${VCENTER_PWD} -localPwd ${LOCAL_PWD} -builds \$builds
                     """
             }
