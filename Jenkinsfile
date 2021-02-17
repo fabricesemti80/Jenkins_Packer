@@ -11,7 +11,7 @@ pipeline {
         stage('Build') {
             // here we create the build environment, preparing the work files for each selectd build
             steps {
-                echo "\e[31mBuilding environment\e[0m\n"
+                echo 'Building..'
                 // where are we
                 powershell """
                 \$location = Get-location
