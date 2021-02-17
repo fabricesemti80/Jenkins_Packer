@@ -12,13 +12,13 @@ param(
     # $sourceFolder,
     # [Parameter(Mandatory)]
     # $buildFolder,
-    [Parameter(Mandatory)]
-    $vCenterUser,
+    # [Parameter(Mandatory)]
+    # $vCenterAdmin,
     [Parameter(Mandatory)]
     $vCenterPwd,
     [Parameter(Mandatory)]
-    $localUser,
-    [Parameter(Mandatory)]
+    # $localUser,
+    # [Parameter(Mandatory)]
     $localPwd,
     [Parameter(Mandatory = $false)][switch] $build # if this switch is not enabled, the process will only validate
 )
@@ -47,11 +47,11 @@ switch ($buildName) {
 # # Base Image
 if ($build.ispresent) {
     # build the template
-    Start-Process -FilePath 'packer.exe' -ArgumentList "build  -var `"vm_name=$($buildName)`" -var `"vsphere-user=$($vCenterUser)`" -var `"vsphere-password=$($vCenterPwd)`" -var `"winadmin-password=$($localPwd)`" $buildJSON" -Wait -NoNewWindow
+    Start-Process -FilePath 'packer.exe' -ArgumentList "build  -var `"vm_name=$($buildName)`" -var `"vsphere-user=$($vCenterAdmin)`" -var `"vsphere-password=$($vCenterPwd)`" -var `"winadmin-password=$($localPwd)`" $buildJSON" -Wait -NoNewWindow
 }
 else {
     # validate the template
-    Start-Process -FilePath 'packer.exe' -ArgumentList "validate -var `"vm_name=$($buildName)`" -var `"vsphere-user=$($vCenterUser)`" -var `"vsphere-password=$($vCenterPwd)`" -var `"winadmin-password=$($localPwd)`" $buildJSON" -Wait -NoNewWindow
+    Start-Process -FilePath 'packer.exe' -ArgumentList "validate -var `"vm_name=$($buildName)`" -var `"vsphere-user=$($vCenterAdmin)`" -var `"vsphere-password=$($vCenterPwd)`" -var `"winadmin-password=$($localPwd)`" $buildJSON" -Wait -NoNewWindow
 }
 
 # Start-Process -FilePath 'packer.exe' -ArgumentList "build  -var `"os_name=$($packerData.os_name)`" -var `"iso_checksum=$($packerData.iso_checksum)`"  .\01-windows-base.json" -Wait -NoNewWindow

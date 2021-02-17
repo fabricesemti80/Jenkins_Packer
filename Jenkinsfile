@@ -64,13 +64,18 @@ pipeline {
             // packer validate
             steps {
                 echo 'Testing..'
+                    powershell """
+                    \$builds = @(${BUILDS})
+                    # \$vCenterCred = ${VCENTER_CRED}
+                    # .\\Remove-Templates.ps1 -vCenterCred \$vCenterCred -builds \$builds
+                    .\\PACKER-Builder.ps1 -vCenterAdmin ${VCENTER_ADMIN} -vCenterPwd ${VCENTER_PWD} -localPwd ${LOCAL_PWD} -builds \$builds
+                    """
             }
         }
         stage('Deploy') {
             // packer build
             steps {
                 echo 'Deploying...'
-                
             }
         }
     // stage('Cleanup-Workspace') {

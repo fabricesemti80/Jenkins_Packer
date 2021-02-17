@@ -23,9 +23,9 @@ param(
 begin {
     
     $ErrorActionPreference = [System.Management.Automation.ActionPreference]::Stop
-    $CurrentPath = Split-Path -Parent $PSCommandPath
+    #$CurrentPath = Split-Path -Parent $PSCommandPath
 
-    $date = Get-Date -Format yyyyMMdd
+    #$date = Get-Date -Format yyyyMMdd
     
 }
     
@@ -50,7 +50,10 @@ process {
             Break 
         }
         '2019_gui' {
-            #
+            #$productKey = '7FDQQ-NJWP6-YFXJ8-HDC9V-MBKRD'
+            $productKey = 'N69G4-B89J2-4G8F4-WWYCC-J464C'
+            $edition = 'Windows Server 2019 SERVERSTANDARD'
+            Break 
             Break 
         }
         '2016_core' {

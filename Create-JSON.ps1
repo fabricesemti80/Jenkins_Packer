@@ -23,7 +23,7 @@ param(
 begin {
     
     $ErrorActionPreference = [System.Management.Automation.ActionPreference]::Stop
-    $CurrentPath = Split-Path -Parent $PSCommandPath
+    #$CurrentPath = Split-Path -Parent $PSCommandPath
 
     $date = Get-Date -Format yyyyMMdd
     

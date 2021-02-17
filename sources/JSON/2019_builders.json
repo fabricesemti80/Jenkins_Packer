@@ -35,7 +35,7 @@
             "vm_name": "{{user `vm_name`}}",
             "winrm_password": "{{user `winadmin-password`}}",
             "winrm_timeout": "12h",
-            "winrm_username": "Administrator"
+            "winrm_username": "{{user `winadmin-user`}}"
         }
     ]
 }
