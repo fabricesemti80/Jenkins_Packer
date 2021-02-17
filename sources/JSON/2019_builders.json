@@ -30,12 +30,12 @@
             "shutdown_command": "shutdown /s /t 10 /f /d p:4:1 /c Packer_Provisioning_Shutdown",
             "shutdown_timeout": "1h",
             "type": "vsphere-iso",
-            "username": "{{user `vsphere-user`}}",
+            "username": "administrator@vsphere.local",
             "vcenter_server": "{{user `vsphere-server`}}",
             "vm_name": "{{user `vm_name`}}",
             "winrm_password": "{{user `winadmin-password`}}",
             "winrm_timeout": "12h",
-            "winrm_username": "{{user `winadmin-user`}}"
+            "winrm_username": "administrator"
         }
     ]
 }
