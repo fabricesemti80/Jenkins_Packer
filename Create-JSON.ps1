@@ -25,6 +25,42 @@ begin {
     $ErrorActionPreference = [System.Management.Automation.ActionPreference]::Stop
     #$CurrentPath = Split-Path -Parent $PSCommandPath
 
+    #region MERGE JSON https://gist.github.com/Badabum/a61e49019fb96bef4d5d9712e07b2af7
+    function Join-Objects($source, $extend) {
+        if ($source.GetType().Name -eq 'PSCustomObject' -and $extend.GetType().Name -eq 'PSCustomObject') {
+            foreach ($Property in $source | Get-Member -type NoteProperty, Property) {
+                if ($extend.$($Property.Name) -eq $null) {
+                    continue;
+                }
+                $source.$($Property.Name) = Join-Objects $source.$($Property.Name) $extend.$($Property.Name)
+            }
+        }
+        else {
+            $source = $extend;
+        }
+        return $source
+    }
+    function AddPropertyRecurse($source, $toExtend) {
+        if ($source.GetType().Name -eq 'PSCustomObject') {
+            foreach ($Property in $source | Get-Member -type NoteProperty, Property) {
+                if ($toExtend.$($Property.Name) -eq $null) {
+                    $toExtend | Add-Member -MemberType NoteProperty -Value $source.$($Property.Name) -Name $Property.Name `
+            
+                }
+                else {
+                    $toExtend.$($Property.Name) = AddPropertyRecurse $source.$($Property.Name) $toExtend.$($Property.Name)
+                }
+            }
+        }
+        return $toExtend
+    }
+    function Json-Merge($source, $extend) {
+        $merged = Join-Objects $source $extend
+        $extended = AddPropertyRecurse $merged $extend
+        return $extended
+    }
+    #endregion
+
     $date = Get-Date -Format yyyyMMdd
     
 }
@@ -57,7 +93,8 @@ process {
             $data2 = Get-Content $baseProvisioners -Raw | ConvertFrom-Json
             $data3 = Get-Content $variables -Raw | ConvertFrom-Json
             #
-            @($data1; $data2; $data3) | ConvertTo-Json -Depth 5 | Out-File $buildJSON
+            # @($data1; $data2; $data3) | ConvertTo-Json -Depth 5 | Out-File $buildJSON
+            Json-Merge $data1 $data2 $data3 | ConvertTo-Json -Depth 5 | Out-File $buildJSON
             Break 
         }
         '2019_gui' {
