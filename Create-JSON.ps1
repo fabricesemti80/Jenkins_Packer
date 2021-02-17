@@ -94,7 +94,10 @@ process {
             $data3 = Get-Content $variables -Raw | ConvertFrom-Json
             #
             # @($data1; $data2; $data3) | ConvertTo-Json -Depth 5 | Out-File $buildJSON
-            Json-Merge $data1 $data2 $data3 | ConvertTo-Json -Depth 5 | Out-File $buildJSON
+
+            $JSON = Json-Merge $data1 $data2
+            $JSON = Json-Merge $JSON $data3
+            $JSON | ConvertTo-Json -Depth 5 | Out-File $buildJSON -Encoding Ascii -Force
             Break 
         }
         '2019_gui' {

@@ -28,12 +28,22 @@ $buildJSON = '.\' + $buildName + '\' + $date + '_build.json'
 
 switch ($buildName) {
     '2019_core' {
+        if ($build.ispresent) {
+            Write-Output 'We are building  template -> 2019 core server'  
+        }
+        else {
+            Write-Output 'We are validating  template -> 2019 core server'  
+        }
         
-        Write-Output 'We are building  template -> 2019 core server'   
     
     } 
     '2019_gui' {
-        Write-Output 'We are building  templates -> 2019 desktop server'
+        if ($build.ispresent) {
+            Write-Output 'We are building  template -> 2019 desktop server'  
+        }
+        else {
+            Write-Output 'We are validating  template -> 2019 desktop server'  
+        }
     } 
     '2016_core' {
         Write-Output 'We are building  templates -> 2016 core server'
