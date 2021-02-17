@@ -29,7 +29,7 @@ begin {
     function Join-Objects($source, $extend) {
         if ($source.GetType().Name -eq 'PSCustomObject' -and $extend.GetType().Name -eq 'PSCustomObject') {
             foreach ($Property in $source | Get-Member -type NoteProperty, Property) {
-                if ($extend.$($Property.Name) -eq $null) {
+                if ($null -eq $extend.$($Property.Name)) {
                     continue;
                 }
                 $source.$($Property.Name) = Join-Objects $source.$($Property.Name) $extend.$($Property.Name)
@@ -43,7 +43,7 @@ begin {
     function AddPropertyRecurse($source, $toExtend) {
         if ($source.GetType().Name -eq 'PSCustomObject') {
             foreach ($Property in $source | Get-Member -type NoteProperty, Property) {
-                if ($toExtend.$($Property.Name) -eq $null) {
+                if ($null -eq $toExtend.$($Property.Name)) {
                     $toExtend | Add-Member -MemberType NoteProperty -Value $source.$($Property.Name) -Name $Property.Name `
             
                 }
