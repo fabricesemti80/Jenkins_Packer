@@ -1,6 +1,10 @@
 {
     "provisioners": [
         {
+            "restart_timeout": "30m",
+            "type": "windows-restart"
+        },
+        {
             "scripts": [
                 "./localScripts/choco_installs.ps1"
             ],

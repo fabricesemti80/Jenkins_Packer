@@ -55,6 +55,7 @@ foreach ($cluster in $clusters) {
         # # Base Image
         if ($deploy.ispresent) {
             # build the template
+            Write-Host # lazy line break
             Write-Output "Deploying build: $buildName"
             Write-Output "Deployment cluster: $cluster"
             Write-Output "Template file: $buildJSON"
@@ -63,6 +64,7 @@ foreach ($cluster in $clusters) {
         }
         else {
             # validate the template
+            Write-Host # lazy line break
             Write-Output "Validating build: $buildName"
             Write-Output "Deployment cluster: $cluster"
             Write-Output "Template file: $buildJSON"
