@@ -10,6 +10,5 @@ if ($edition -like '*2019*') {
     Start-Sleep -Seconds 30
     # add MAK
     slmgr /ipk 7FDQQ-NJWP6-YFXJ8-HDC9V-MBKRD
-    $cName = Get-ComputerName
     cscript C:\Windows\System32\slmgr.vbs /dli > $('c:\' + $cName + '_post_activation.txt')
 }
