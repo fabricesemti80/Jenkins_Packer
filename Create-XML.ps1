@@ -44,14 +44,14 @@ process {
 
     switch ($buildName) {
         '2019_core' {
-            $productKey = '7FDQQ-NJWP6-YFXJ8-HDC9V-MBKRD'
-            #$productKey = 'N69G4-B89J2-4G8F4-WWYCC-J464C'
+            #$productKey = '7FDQQ-NJWP6-YFXJ8-HDC9V-MBKRD' # MAK
+            $productKey = 'N69G4-B89J2-4G8F4-WWYCC-J464C' # KMS
             $edition = 'Windows Server 2019 SERVERSTANDARDCORE'
             Break 
         }
         '2019_gui' {
-            $productKey = '7FDQQ-NJWP6-YFXJ8-HDC9V-MBKRD'
-            #$productKey = 'N69G4-B89J2-4G8F4-WWYCC-J464C'
+            #$productKey = '7FDQQ-NJWP6-YFXJ8-HDC9V-MBKRD' # MAK
+            $productKey = 'N69G4-B89J2-4G8F4-WWYCC-J464C' # KMS
             $edition = 'Windows Server 2019 SERVERSTANDARD'
             Break             
         }

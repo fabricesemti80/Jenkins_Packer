@@ -19,7 +19,7 @@
             "guest_os_type": "windows9Server64Guest",
             "insecure_connection": "true",
             "iso_paths": [
-                "",
+                "[AL001-Local-DataStore01] contentlib-e049548c-f120-497a-9e1d-94c18a172510/adf69104-a4f4-4af6-b2a4-f2641eaddb21/SW_DVD9_Win_Server_STD_CORE_2019_1809.2_64Bit_English_DC_STD_MLF_X22-18452_3de2d1bc-dd68-481f-b283-7d2bc0843bb5.ISO",
                 "[AL001-Local-DataStore01] contentlib-e049548c-f120-497a-9e1d-94c18a172510/ab888b06-6900-40df-8a98-7c44a777ded6/VMware-tools-windows-11.1.1-16303738_0083bf9a-4d33-408f-a913-0309542e8b9a.iso"
             ],
             "network": "{{user `vm-network`}}",
