@@ -68,19 +68,34 @@ begin {
 process {
 
     # source files
+    switch -wildcard ($buildName) {
+        '*2019*' {
+            Write-Output 'Selected 2019 ISO'
+            $builders = '.\sources\JSON\2019_builders.json'; break 
+        }
+        '*2016*' {
+            Write-Output 'Selected 2016 ISO'
+            $builders = '.\sources\JSON\2016_builders.json'; break 
+        }
+        Default {
+            Write-Warning 'Unrecognized build!'
+        }
+    }
     $builders = '.\sources\JSON\builders.json'
     $baseProvisioners = '.\sources\JSON\base_provisioners.json'
     # $variables = '.\sources\JSON\bnw_variables.json'
 
     switch ($cluster) {
         'bnw' {
+            Write-Output 'Selected BNW cluster'
             $variables = '.\sources\JSON\bnw_variables.json'; break 
         }
         'alw' {
+            Write-Output 'Selected ALW cluster'
             $variables = '.\sources\JSON\alw_variables.json'; break 
         }
         Default {
-            Write-Output 'Unrecognized cluster!'
+            Write-Warning 'Unrecognized cluster!'
         }
     }
 
