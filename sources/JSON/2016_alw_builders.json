@@ -1,0 +1,41 @@
+{
+    "builders": [
+        {
+            "cluster": "{{user `vsphere-cluster`}}",
+            "communicator": "winrm",
+            "convert_to_template": "true",
+            "CPUs": "{{user `vm-cpu-num`}}",
+            "datacenter": "{{user `vsphere-datacenter`}}",
+            "datastore": "{{user `vsphere-datastore`}}",
+            "disk_controller_type": "pvscsi",
+            "disk_size": "{{user `vm-disk-size`}}",
+            "disk_thin_provisioned": true,
+            "floppy_files": [
+                "./remoteScripts/",
+                "./answerFiles/"
+            ],
+            "floppy_img_path": "[BN001-Local-DataStore01] contentlib-a036a42c-4504-44db-9d1a-3e9550954bf7/2b074347-88e4-408e-b228-d890308fa96d/pvscsi_88204189-95a8-4dbc-8fdb-8b4249c07c6f.flp",
+            "folder": "{{user `vsphere-folder`}}",
+            "guest_os_type": "windows9Server64Guest",
+            "insecure_connection": "true",
+            "iso_paths": [
+                "[AL001-Local-DataStore01] contentlib-e049548c-f120-497a-9e1d-94c18a172510/2ef8c76c-8c63-4e7e-905c-edaa44275401/en_windows_server_2016_updated_feb_2018_x64_dvd_11636692_e6fb6e9d-007a-45b4-bb73-f11723467407.iso",
+                "[AL001-Local-DataStore01] contentlib-e049548c-f120-497a-9e1d-94c18a172510/ab888b06-6900-40df-8a98-7c44a777ded6/VMware-tools-windows-11.1.1-16303738_0083bf9a-4d33-408f-a913-0309542e8b9a.iso"
+            ],
+            "network": "{{user `vm-network`}}",
+            "network_card": "vmxnet3",
+            "notes": "{{user `vm-note`}}",
+            "password": "{{user `vsphere-password`}}",
+            "RAM": "{{user `vm-mem-size`}}",
+            "shutdown_command": "shutdown /s /t 10 /f /d p:4:1 /c Packer_Provisioning_Shutdown",
+            "shutdown_timeout": "1h",
+            "type": "vsphere-iso",
+            "username": "administrator@vsphere.local",
+            "vcenter_server": "{{user `vsphere-server`}}",
+            "vm_name": "{{user `vm_name`}}",
+            "winrm_password": "{{user `winadmin-password`}}",
+            "winrm_timeout": "12h",
+            "winrm_username": "administrator"
+        }
+    ]
+}
