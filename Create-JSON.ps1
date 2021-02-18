@@ -81,7 +81,6 @@ process {
             Write-Warning 'Unrecognized build!'
         }
     }
-    $builders = '.\sources\JSON\builders.json'
     $baseProvisioners = '.\sources\JSON\base_provisioners.json'
     # $variables = '.\sources\JSON\bnw_variables.json'
 
