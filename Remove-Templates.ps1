@@ -15,7 +15,8 @@ param(
     [Parameter(Mandatory = $false, ParameterSetName = 'withCredential')][PSCredential]$vCenterCred,
     [Parameter(Mandatory, ParameterSetName = 'withUnamePassword')][string]$vCenterAdmin,
     [Parameter(Mandatory, ParameterSetName = 'withUnamePassword')][string]$vCenterPwd,
-    [Parameter(Mandatory)][array]$builds
+    [Parameter(Mandatory)][array]$builds,
+    [Parameter(Mandatory)][array]$clusters
 )
 begin {
     $ErrorActionPreference = [System.Management.Automation.ActionPreference]::Stop
@@ -41,8 +42,22 @@ process {
     }
     #endregion
     #region FIND TEMPLATES
+    foreach ($cluster in $clusters) {
+        switch ($cluster) {
+            'bnw' {
+                $folder = 'bn-Templates'; break 
+            }
+            'alw' {
+                $folder = 'al-Templates'; break 
+            }
+            Default {
+                Write-Warning 'Unrecognized cluster!'
+            }
+        }
+        
+    }
     foreach ($build in $builds) {
-        $oldTemplates = Get-Template | Where-Object { $_.Name -match $build } -ErrorAction Ignore    
+        $oldTemplates = Get-Folder $folder | Get-Template | Where-Object { $_.Name -match $build } -ErrorAction Ignore    
         #endregion
         #region REMOVE TEMPLATES
         if ($oldTemplates) {

@@ -62,7 +62,8 @@ pipeline {
                     echo 'Removing templates'
                     powershell """
                     \$builds = @(${BUILDS})
-                    .\\Remove-Templates.ps1 -vCenterAdmin ${VCENTER_ADMIN} -vCenterPwd ${VCENTER_PWD} -builds \$builds
+                    \$clusters = @(${CLUSTERS})
+                    .\\Remove-Templates.ps1 -vCenterAdmin ${VCENTER_ADMIN} -vCenterPwd ${VCENTER_PWD} -builds \$builds -clusters \$clusters
                     """
                 }
             }
