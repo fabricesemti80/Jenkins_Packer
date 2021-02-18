@@ -60,7 +60,7 @@ foreach ($cluster in $clusters) {
             Write-Output "Deployment cluster: $cluster"
             Write-Output "Template file: $buildJSON"
 
-            Start-Process -FilePath 'packer.exe' -ArgumentList "build -force -var `"vm-note=$($note)`" -var `"vm_name=$($buildName)`" -var `"vsphere-user=$($vCenterAdmin)`" -var `"vsphere-password=$($vCenterPwd)`" -var `"winadmin-password=$($localPwd)`" $buildJSON" -Wait -NoNewWindow
+            Start-Process -FilePath 'packer.exe' -ArgumentList "build -timestamp-ui -force -var `"vm-note=$($note)`" -var `"vm_name=$($buildName)`" -var `"vsphere-user=$($vCenterAdmin)`" -var `"vsphere-password=$($vCenterPwd)`" -var `"winadmin-password=$($localPwd)`" $buildJSON" -Wait -NoNewWindow
         }
         else {
             # validate the template
