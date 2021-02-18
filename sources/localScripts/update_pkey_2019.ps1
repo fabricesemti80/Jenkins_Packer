@@ -2,7 +2,9 @@ $edition = (Get-WmiObject -Class Win32_OperatingSystem).Caption
 
 if ($edition -like '*2019*') {
 
-    
+    <# 
+    https://docs.microsoft.com/en-us/archive/blogs/rgullick/activating-windows-with-powershell
+    #>
     Write-Output 'Changing product key to MAK'
     $computer = Get-Content env:computername
 
@@ -30,5 +32,5 @@ if ($edition -like '*2019*') {
     # #     cscript C:\Windows\System32\slmgr.vbs /dli > $('c:\' + $cName + '_post_activation.txt')
 }
 
-Write-Host 'Procut key updated'
+Write-Host 'Product key updated'
 

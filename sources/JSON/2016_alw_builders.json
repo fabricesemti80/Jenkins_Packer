@@ -14,7 +14,7 @@
                 "./remoteScripts/",
                 "./answerFiles/"
             ],
-            "floppy_img_path": "[BN001-Local-DataStore01] contentlib-a036a42c-4504-44db-9d1a-3e9550954bf7/2b074347-88e4-408e-b228-d890308fa96d/pvscsi_88204189-95a8-4dbc-8fdb-8b4249c07c6f.flp",
+            "floppy_img_path": "[AL001-Local-DataStore01] contentlib-e049548c-f120-497a-9e1d-94c18a172510/f8fdeb4f-902f-4524-b05b-bd5dbd5692c6/pvscsi_3bfb5744-7b89-4ea6-bd1b-45593bb50bf0.flp",
             "folder": "{{user `vsphere-folder`}}",
             "guest_os_type": "windows9Server64Guest",
             "insecure_connection": "true",
