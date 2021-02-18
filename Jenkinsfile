@@ -6,10 +6,13 @@ pipeline {
     // }
     options {
         ansiColor('xterm')
-    }    
+    }
     stages {
         stage('Build') {
             // here we create the build environment, preparing the work files for each selectd build
+            options {
+                timeout(time: 1, unit: 'HOURS')
+            }
             steps {
                 echo 'Building..'
                 // where are we
@@ -45,12 +48,15 @@ pipeline {
                     }
                 }
                 """
-                // ensure file structure is correct
-                // powershell script: '(Get-childitem -recurse | where-object {$_ -notlike "*git*"}).FullName'
+            // ensure file structure is correct
+            // powershell script: '(Get-childitem -recurse | where-object {$_ -notlike "*git*"}).FullName'
             }
         }
         stage('Cleanup-templates') {
             // removing vm templates
+            options {
+                timeout(time: 1, unit: 'HOURS')
+            }
             steps {
                 withCredentials([usernameColonPassword(credentialsId: 'b1d1ccf9-1ab1-4ff6-9f2c-3a2a09bbd91d', variable: 'VCENTER_CRED')]) {
                     echo 'Removing templates'
@@ -63,24 +69,30 @@ pipeline {
         }
         stage('Test') {
             // packer validate
+            options {
+                timeout(time: 1, unit: 'HOURS')
+            }
             steps {
                 echo 'Testing..'
                     powershell """
-                    \$builds = @(${BUILDS})    
-                    \$clusters = @(${CLUSTERS})                
+                    \$builds = @(${BUILDS})
+                    \$clusters = @(${CLUSTERS})
                     .\\PACKER-Builder.ps1 -vCenterPwd ${VCENTER_PWD} -localPwd ${LOCAL_PWD} -builds \$builds -clusters \$clusters
                     """
             }
         }
         stage('Deploy') {
             // packer build
+            options {
+                timeout(time: 4, unit: 'HOURS')
+            }
             steps {
                 echo 'Deploying...'
                     powershell """
-                    \$builds = @(${BUILDS}) 
-                    \$clusters = @(${CLUSTERS})                    
-                    .\\PACKER-Builder.ps1 -vCenterPwd ${VCENTER_PWD} -localPwd ${LOCAL_PWD} -builds \$builds -clusters \$clusters -deploy                     
-                    """                
+                    \$builds = @(${BUILDS})
+                    \$clusters = @(${CLUSTERS})
+                    .\\PACKER-Builder.ps1 -vCenterPwd ${VCENTER_PWD} -localPwd ${LOCAL_PWD} -builds \$builds -clusters \$clusters -deploy
+                    """
             }
         }
     // stage('Cleanup-Workspace') {
