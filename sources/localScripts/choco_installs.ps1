@@ -26,17 +26,29 @@ function Install-Choco {
     }
 }
 
-$chocov = choco -v
+$chocov = ($env:path -match 'chocolatey')
 $i = 0
 
-do {
-    Write-Host "ATTEMPT---> $i"
-    if (-not $chocov) {
-        Write-Output 'CHOCO install commencing'
-        Install-Choco
+# If we found that chocolatey is not installed..
+if (-not $chocov) {
+    do {
+        Write-Host "ATTEMPT---> $i"
+        if (-not $chocov) {
+            Write-Output 'CHOCO install commencing'
+            # ...install Chocolatey...
+            Install-Choco
+            # ... and refresh its install status ...
+            $chocov = ($env:path -match 'chocolatey')
+        }
+        $i++
     }
-    $i++
-} until (($null -ne $chocov) -or ($i -ge 5))
+    # ... until it is found, or the number attempts reaches 5
+    until (($null -ne $chocov) -or ($i -ge 5))
+}
+else {
+    Write-Output 'Found CHOCO installed'
+}
+
 
 Write-Output 'APP install commencing'
 Install-Apps
