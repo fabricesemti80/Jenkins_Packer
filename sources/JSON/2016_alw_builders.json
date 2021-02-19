@@ -14,13 +14,13 @@
                 "./remoteScripts/",
                 "./answerFiles/"
             ],
-            "floppy_img_path": "[AL001-Local-DataStore01] contentlib-e049548c-f120-497a-9e1d-94c18a172510/f8fdeb4f-902f-4524-b05b-bd5dbd5692c6/pvscsi_3bfb5744-7b89-4ea6-bd1b-45593bb50bf0.flp",
+            "floppy_img_path": "[AL001-Local-DataStore01] contentlib-700910e0-5902-49bd-89b8-a5d6750cea04/a79235ae-b91b-45f0-a594-56d3b2be5990/pvscsi_74f9309f-6c6f-4deb-ab8a-471112dc7622.flp",
             "folder": "{{user `vsphere-folder`}}",
             "guest_os_type": "windows9Server64Guest",
             "insecure_connection": "true",
             "iso_paths": [
-                "[AL001-Local-DataStore01] contentlib-e049548c-f120-497a-9e1d-94c18a172510/2ef8c76c-8c63-4e7e-905c-edaa44275401/en_windows_server_2016_updated_feb_2018_x64_dvd_11636692_e6fb6e9d-007a-45b4-bb73-f11723467407.iso",
-                "[AL001-Local-DataStore01] contentlib-e049548c-f120-497a-9e1d-94c18a172510/ab888b06-6900-40df-8a98-7c44a777ded6/VMware-tools-windows-11.1.1-16303738_0083bf9a-4d33-408f-a913-0309542e8b9a.iso"
+                "[AL001-Local-DataStore01] contentlib-700910e0-5902-49bd-89b8-a5d6750cea04/237480e4-5d4a-4269-a0be-97f845654207/en_windows_server_2016_updated_feb_2018_x64_dvd_11636692_29158f5b-f30d-4912-a7a1-a9873e3a98ea.iso",
+                "[AL001-Local-DataStore01] contentlib-700910e0-5902-49bd-89b8-a5d6750cea04/dac98c1b-614d-496c-b87f-d0f3afa4002f/VMware-tools-windows-11.1.1-16303738_9d7c2f31-39f0-4575-b306-5b05ca7a0133.iso"
             ],
             "network": "{{user `vm-network`}}",
             "network_card": "vmxnet3",
