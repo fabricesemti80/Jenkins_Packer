@@ -52,22 +52,22 @@ pipeline {
             // powershell script: '(Get-childitem -recurse | where-object {$_ -notlike "*git*"}).FullName'
             }
         }
-        stage('Cleanup-templates') {
-            // removing vm templates
-            options {
-                timeout(time: 1, unit: 'HOURS')
-            }
-            steps {
-                withCredentials([usernameColonPassword(credentialsId: 'b1d1ccf9-1ab1-4ff6-9f2c-3a2a09bbd91d', variable: 'VCENTER_CRED')]) {
-                    echo 'Removing templates'
-                    powershell """
-                    \$builds = @(${BUILDS})
-                    \$clusters = @(${CLUSTERS})
-                    .\\Remove-Templates.ps1 -vCenterAdmin ${VCENTER_ADMIN} -vCenterPwd ${VCENTER_PWD} -builds \$builds -clusters \$clusters
-                    """
-                }
-            }
-        }
+        // stage('Cleanup-templates') {
+        //     // removing vm templates
+        //     options {
+        //         timeout(time: 1, unit: 'HOURS')
+        //     }
+        //     steps {
+        //         withCredentials([usernameColonPassword(credentialsId: 'b1d1ccf9-1ab1-4ff6-9f2c-3a2a09bbd91d', variable: 'VCENTER_CRED')]) {
+        //             echo 'Removing templates'
+        //             powershell """
+        //             \$builds = @(${BUILDS})
+        //             \$clusters = @(${CLUSTERS})
+        //             .\\Remove-Templates.ps1 -vCenterAdmin ${VCENTER_ADMIN} -vCenterPwd ${VCENTER_PWD} -builds \$builds -clusters \$clusters
+        //             """
+        //         }
+        //     }
+        // }
         stage('Test') {
             // packer validate
             options {
