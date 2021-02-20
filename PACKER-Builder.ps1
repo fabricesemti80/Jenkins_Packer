@@ -12,7 +12,7 @@ param(
 )
 
 # If (Get-Module -Name 'Start-parallel') {
-Import-Module -Name 'Start-parallel' -Force
+Get-Module 'start-parallel' -ListAvailable | Import-Module -Verbose -Force
 # }
 # else {
 #     Install-Module 'Start-parallel' -Force
