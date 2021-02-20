@@ -23,11 +23,12 @@ $note = "This template was created on $timeStamp using Packer!"
 
 
 
-foreach ($cluster in $clusters) {
 
-    $builds | ForEach-Object -Parallel {
 
-        
+$builds | ForEach-Object -Parallel {
+
+    $clusters = @('bnw', 'alw')
+    foreach ($cluster in $clusters) {
         function New-PACKERTemplate {
             param (
         
@@ -87,13 +88,14 @@ foreach ($cluster in $clusters) {
         else {
             New-PACKERTemplate -cluster $cluster -note $note -buildName $($_)
         }
+    }
         
 
         
-    }
+}
 
  
-}
+
 
 
 # foreach ($cluster in $clusters) {
