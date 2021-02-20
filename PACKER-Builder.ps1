@@ -73,18 +73,19 @@ function Create-VMTemplate {
 }
 
 foreach ($cluster in $clusters) {
-    foreach ($buildName in $builds) {
+    $builds | Start-parallel -Scriptblock { PARAM ($buildname, $cluster, $note) ; Create-VMTemplate -cluster $cluster -note $note -buildName $buildName }
+    # foreach ($buildName in $builds) {
 
-        if ($deploy.IsPresent) {
-            Create-VMTemplate -cluster $cluster -note $note -buildName $buildName -deploy
-        }
-        else {
-            Create-VMTemplate -cluster $cluster -note $note -buildName $buildName
-        }
+    #     if ($deploy.IsPresent) {
+    #         Create-VMTemplate -cluster $cluster -note $note -buildName $buildName -deploy
+    #     }
+    #     else {
+    #         Create-VMTemplate -cluster $cluster -note $note -buildName $buildName
+    #     }
         
 
         
-    }
+    # }
 
  
 }
