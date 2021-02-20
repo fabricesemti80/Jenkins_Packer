@@ -64,6 +64,7 @@ foreach ($cluster in $clusters) {
                 [Parameter(Mandatory = $false)][switch] $deploy # if this switch is not enabled, the process will only validate        
             )
             Set-Location $buildname 
+            $vmName = $($cluster + '_' + $buildName )
 
             $loc = (Get-Location)        
             Write-Output "Entered into folder $loc"
@@ -88,7 +89,7 @@ foreach ($cluster in $clusters) {
                 Write-Output "Deployment cluster: $cluster"
                 Write-Output "Template file: $buildJSON"
 
-                Start-Process -FilePath 'packer.exe' -ArgumentList "validate -var `"vm-note=$($note)`" -var `"vm_name=$($buildName)`" -var `"vsphere-user=$($vCenterAdmin)`" -var `"vsphere-password=$($vCenterPwd)`" -var `"winadmin-password=$($localPwd)`" $buildJSON" -Wait -NoNewWindow
+                Start-Process -FilePath 'packer.exe' -ArgumentList "validate -var `"vm-note=$($note)`" -var `"vm_name=$($vmName)`" -var `"vsphere-user=$($vCenterAdmin)`" -var `"vsphere-password=$($vCenterPwd)`" -var `"winadmin-password=$($localPwd)`" $buildJSON" -Wait -NoNewWindow
             }
             # exited folder
             Set-Location ..
