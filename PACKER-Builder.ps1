@@ -11,12 +11,12 @@ param(
     [Parameter(Mandatory = $false)][switch] $deploy # if this switch is not enabled, the process will only validate
 )
 
-If (Get-Module -Name 'Start-parallel') {
-    Import-Module -Name 'Start-parallel' -Force
-}
-else {
-    Install-Module 'Start-parallel' -Force
-}
+# If (Get-Module -Name 'Start-parallel') {
+Import-Module -Name 'Start-parallel' -Force
+# }
+# else {
+#     Install-Module 'Start-parallel' -Force
+# }
 
 $timeStamp = Get-Date -Format yyyy-MM-dd
 $note = "This template was created on $timeStamp using Packer!"
