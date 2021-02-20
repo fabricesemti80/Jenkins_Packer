@@ -23,12 +23,21 @@ $note = "This template was created on $timeStamp using Packer!"
 
 
 
+foreach ($cluster in $clusters) {
 
+    $inerClusters = $null
+    $inerNote = $null
+    $inerLocalPwd = $null
+    $inervCenterPwd = $null
+    $inerDeploy = $null
 
-$builds | ForEach-Object -Parallel {
+    $builds | ForEach-Object -Parallel {
 
-    $clusters = @('bnw', 'alw')
-    foreach ($cluster in $clusters) {
+        $inerCluster = $using:cluster
+        $inerNote = $using:note
+        $inerLocalPwd = $using:localPwd
+        $inervCenterPwd = $using:vCenterPwd
+        $inerDeploy = $using:Deploy
         function New-PACKERTemplate {
             param (
         
@@ -38,8 +47,16 @@ $builds | ForEach-Object -Parallel {
 
                 [Parameter(Mandatory )]
                 [string]
-                $note,        
-        
+                $note,  
+                
+                [Parameter(Mandatory )]
+                [string]
+                $localPwd, 
+
+                [Parameter(Mandatory )]
+                [string]
+                $vCenterPwd, 
+
                 [Parameter(Mandatory )]
                 [string]
                 $buildName,
@@ -82,20 +99,19 @@ $builds | ForEach-Object -Parallel {
 
         Write-Output "PROCESSING --> $($_)"
 
-        if ($deploy.IsPresent) {
-            New-PACKERTemplate -cluster $cluster -note $note -buildName $($_) -deploy
+        if ($inerDeploy.IsPresent) {
+            New-PACKERTemplate -cluster $inerCluster -note $inerNote -localpwd $inerLocalPwd -vcenterpwd $inervCenterPwd -buildName $($_) -deploy
         }
         else {
-            New-PACKERTemplate -cluster $cluster -note $note -buildName $($_)
+            New-PACKERTemplate -cluster $inerCluster -note $inerNote -localpwd $inerLocalPwd -vcenterpwd $inervCenterPwd -buildName $($_)
         }
-    }
         
 
         
-}
+    }
 
  
-
+}
 
 
 # foreach ($cluster in $clusters) {
