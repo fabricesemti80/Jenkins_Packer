@@ -12,7 +12,7 @@ param(
 )
 
 # If (Get-Module -Name 'Start-parallel') {
-Get-Module 'start-parallel' -ListAvailable | Import-Module -Verbose -Force
+# Get-Module 'start-parallel' -ListAvailable | Import-Module -Verbose -Force
 # }
 # else {
 #     Install-Module 'Start-parallel' -Force
@@ -73,19 +73,20 @@ function Create-VMTemplate {
 }
 
 foreach ($cluster in $clusters) {
-    $builds | Start-parallel -Scriptblock { PARAM ($buildname, $cluster, $note) ; Create-VMTemplate -cluster $cluster -note $note -buildName $buildName }
-    # foreach ($buildName in $builds) {
+    $builds | ForEach-Object -Parallel {
 
-    #     if ($deploy.IsPresent) {
-    #         Create-VMTemplate -cluster $cluster -note $note -buildName $buildName -deploy
-    #     }
-    #     else {
-    #         Create-VMTemplate -cluster $cluster -note $note -buildName $buildName
-    #     }
+        Write-Output "PROCESSIN --> $($_)"
+
+        if ($deploy.IsPresent) {
+            Create-VMTemplate -cluster $cluster -note $note -buildName $_ -deploy
+        }
+        else {
+            Create-VMTemplate -cluster $cluster -note $note -buildName $_
+        }
         
 
         
-    # }
+    }
 
  
 }

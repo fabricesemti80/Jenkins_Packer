@@ -75,7 +75,7 @@ pipeline {
             }
             steps {
                 echo 'Testing..'
-                    powershell """
+                    pwsh """
                     \$builds = @(${BUILDS})
                     \$clusters = @(${CLUSTERS})
                     .\\PACKER-Builder.ps1 -vCenterPwd ${VCENTER_PWD} -localPwd ${LOCAL_PWD} -builds \$builds -clusters \$clusters
@@ -89,7 +89,7 @@ pipeline {
             }
             steps {
                 echo 'Deploying...'
-                    powershell """
+                    pwsh """
                     \$builds = @(${BUILDS})
                     \$clusters = @(${CLUSTERS})
                     .\\PACKER-Builder.ps1 -vCenterPwd ${VCENTER_PWD} -localPwd ${LOCAL_PWD} -builds \$builds -clusters \$clusters -deploy
