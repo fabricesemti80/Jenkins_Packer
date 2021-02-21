@@ -12,7 +12,7 @@ $timeStamp = Get-Date -Format yyyy-MM-dd
 $note = "This template was created on $timeStamp using Packer!"
 ### * ---> PARALELL BUILD --->
 foreach ($cluster in $clusters) {
-    $inerClusters = $null
+    $inerCluster = $null
     $inerNote = $null
     $inerLocalPwd = $null
     $inervCenterPwd = $null
@@ -56,6 +56,7 @@ foreach ($cluster in $clusters) {
                 Write-Output "Deployment cluster: $cluster"
                 Write-Output "Template file: $buildJSON"
                 Start-Process -FilePath 'packer.exe' -ArgumentList "build -timestamp-ui -force -var `"vm-note=$($note)`" -var `"vm_name=$($vmName)`" -var `"vsphere-user=$($vCenterAdmin)`" -var `"vsphere-password=$($vCenterPwd)`" -var `"winadmin-password=$($localPwd)`" $buildJSON" -Wait -NoNewWindow -PassThru
+                Write-Output "DEPLOYMENT $buildName / $cluster / $buildJSON COMPLETED SUCCESFULLY!"
             }
             else {
                 # validate the template
