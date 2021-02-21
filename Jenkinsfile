@@ -96,12 +96,17 @@ pipeline {
                     """
             }
         }
-        // stage('Cleanup-Workspace') {
-        //     // wipe workspace
-        //     steps {
-        //         echo 'Cleaning up previous runs build files...'
-        //         powershell script: 'Get-childitem -Recurse | Remove-Item -Recurse -Force'
-        //     }
-        // }
+    // stage('Cleanup-Workspace') {
+    //     // wipe workspace
+    //     steps {
+    //         echo 'Cleaning up previous runs build files...'
+    //         powershell script: 'Get-childitem -Recurse | Remove-Item -Recurse -Force'
+    //     }
+    // }
+    }
+    post {
+        always {
+            pwsh 'Get-Process *packer* | Stop-Process -Force'
+        }
     }
 }
