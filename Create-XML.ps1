@@ -53,24 +53,24 @@ process {
     switch ($buildName) {
         '2019_core' {
             #$productKey = '7FDQQ-NJWP6-YFXJ8-HDC9V-MBKRD' # MAK
-            $productKey = 'N69G4-B89J2-4G8F4-WWYCC-J464C' # KMS
+            $productKey = $pKey2019 # KMS
             $edition = 'Windows Server 2019 SERVERSTANDARDCORE'
             Break 
         }
         '2019_gui' {
             #$productKey = '7FDQQ-NJWP6-YFXJ8-HDC9V-MBKRD' # MAK
-            $productKey = 'N69G4-B89J2-4G8F4-WWYCC-J464C' # KMS
+            $productKey = $pKey2019 # KMS
             $edition = 'Windows Server 2019 SERVERSTANDARD'
             Break             
         }
         '2016_core' {
-            $productKey = 'JRYFV-RCN7X-6BH4H-JQGQ7-X77YC'
+            $productKey = $pKey2016
             $edition = 'Windows Server 2016 SERVERSTANDARDCORE'
             Break 
             
         }
         '2016_gui' {
-            $productKey = 'JRYFV-RCN7X-6BH4H-JQGQ7-X77YC'
+            $productKey = $pKey2016
             $edition = 'Windows Server 2016 SERVERSTANDARD'
             Break  
         }                        
