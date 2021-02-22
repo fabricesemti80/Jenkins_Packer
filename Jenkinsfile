@@ -40,13 +40,11 @@ pipeline {
                 powershell """
                 \$builds = @(${BUILDS})
                 \$clusters = @(${CLUSTERS})
-                \$pKey2016 = ${PKEY2016}
-                \$pKey2019 = ${PKEY2019}
                 foreach (\$build in \$builds){
                     foreach (\$cluster in \$clusters)
                     {
                         .\\Create-JSON.ps1 -buildFolder \$build -buildName \$build -cluster \$cluster
-                        .\\Create-XML.ps1 -buildFolder \$build -buildName \$build -cluster \$cluster -pKey2016 \$pKey2016 -pKey2019 \$pKey2019
+                        .\\Create-XML.ps1 -buildFolder \$build -buildName \$build -cluster \$cluster -pKey2016 ${PKEY2016} -pKey2019 ${PKEY2019}
                     }
                 }
                 """
