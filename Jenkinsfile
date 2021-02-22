@@ -78,7 +78,7 @@ pipeline {
                     pwsh """
                     \$builds = @(${BUILDS})
                     \$clusters = @(${CLUSTERS})
-                    .\\PACKER-Builder.ps1 -vCenterPwd ${VCENTER_PWD} -localPwd ${LOCAL_PWD} -builds \$builds -clusters \$clusters
+                    .\\PACKER-Builder.ps1 -vCenterPwd ${VCENTER_PWD} -localPwd ${LOCAL_PWD} -builds \$builds -clusters \$clusters -mode seq
                     """
             }
         }
@@ -92,7 +92,7 @@ pipeline {
                     pwsh """
                     \$builds = @(${BUILDS})
                     \$clusters = @(${CLUSTERS})
-                    .\\PACKER-Builder.ps1 -vCenterPwd ${VCENTER_PWD} -localPwd ${LOCAL_PWD} -builds \$builds -clusters \$clusters -deploy
+                    .\\PACKER-Builder.ps1 -vCenterPwd ${VCENTER_PWD} -localPwd ${LOCAL_PWD} -builds \$builds -clusters \$clusters -deploy -mode par
                     """
             }
         }
