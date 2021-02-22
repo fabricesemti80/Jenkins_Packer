@@ -16,7 +16,15 @@ param(
     [Parameter(Mandatory = $True)]
     [string] 
     [ValidateSet('bnw', 'alw')]
-    $cluster
+    $cluster,
+
+    [Parameter(Mandatory = $True)]
+    [string]
+    $pKey2016,
+    
+    [Parameter(Mandatory = $True)]
+    [string]
+    $pKey2019   
 
 )
     

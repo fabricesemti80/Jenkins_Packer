@@ -94,7 +94,7 @@ switch ($mode) {
         foreach ($cluster in $clusters) {
             foreach ($buildName in $builds) {
                 Set-Location $buildname 
-                $vmName = ($buildName + '_' + "$cluster")
+                $vmName = $($cluster + '_' + $buildName )
                 $loc = Get-Location
                 Write-Output "Entered into folder $loc"
                 $date = Get-Date -Format yyyyMMdd
