@@ -17,12 +17,12 @@ pipeline {
                 echo 'Building..'
                 // where are we
                 cmd 'echo %path%'
-                powershell """
+                pwsh """
                 \$location = Get-location
                 Write-Output "My location is \$location"
                 """
                 // create build folder
-                powershell """
+                pwsh """
                 \$builds = @(${BUILDS})
                 foreach (\$build in \$builds){
                     Write-Output "Creating folder --> \$build"
@@ -31,14 +31,14 @@ pipeline {
                 }
                 """
                 // copy script folders
-                powershell """
+                pwsh """
                 \$builds = @(${BUILDS})
                 foreach (\$build in \$builds){
                     .\\Copy-Sources.ps1 -buildFolder \$build
                 }
                 """
                 // prepare JSON & XML files
-                powershell """
+                pwsh """
                 \$builds = @(${BUILDS})
                 \$clusters = @(${CLUSTERS})
                 foreach (\$build in \$builds){
@@ -50,7 +50,7 @@ pipeline {
                 }
                 """
             // ensure file structure is correct
-            // powershell script: '(Get-childitem -recurse | where-object {$_ -notlike "*git*"}).FullName'
+            // pwsh script: '(Get-childitem -recurse | where-object {$_ -notlike "*git*"}).FullName'
             }
         }
         // stage('Cleanup-templates') {
@@ -61,7 +61,7 @@ pipeline {
         //     steps {
         //         withCredentials([usernameColonPassword(credentialsId: 'b1d1ccf9-1ab1-4ff6-9f2c-3a2a09bbd91d', variable: 'VCENTER_CRED')]) {
         //             echo 'Removing templates'
-        //             powershell """
+        //             pwsh """
         //             \$builds = @(${BUILDS})
         //             \$clusters = @(${CLUSTERS})
         //             .\\Remove-Templates.ps1 -vCenterAdmin ${VCENTER_ADMIN} -vCenterPwd ${VCENTER_PWD} -builds \$builds -clusters \$clusters
@@ -76,7 +76,7 @@ pipeline {
             }
             steps {
                 echo 'Testing..'
-                    powershell """
+                    pwsh """
                     \$builds = @(${BUILDS})
                     \$clusters = @(${CLUSTERS})
                     .\\PACKER-Builder.ps1 -vCenterPwd ${VCENTER_PWD} -localPwd ${LOCAL_PWD} -builds \$builds -clusters \$clusters -mode seq
@@ -90,7 +90,7 @@ pipeline {
             }
             steps {
                 echo 'Deploying...'
-                    powershell """
+                    pwsh """
                     \$builds = @(${BUILDS})
                     \$clusters = @(${CLUSTERS})
                     .\\PACKER-Builder.ps1 -vCenterPwd ${VCENTER_PWD} -localPwd ${LOCAL_PWD} -builds \$builds -clusters \$clusters -deploy -mode par
@@ -101,13 +101,13 @@ pipeline {
     //     // wipe workspace
     //     steps {
     //         echo 'Cleaning up previous runs build files...'
-    //         powershell script: 'Get-childitem -Recurse | Remove-Item -Recurse -Force'
+    //         pwsh script: 'Get-childitem -Recurse | Remove-Item -Recurse -Force'
     //     }
     // }
     }
     post {
         always {
-            powershell 'Get-Process *packer* | Stop-Process -Force'
+            pwsh 'Get-Process *packer* | Stop-Process -Force'
         }
     }
 }
