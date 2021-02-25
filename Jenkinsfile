@@ -16,7 +16,7 @@ pipeline {
             steps {
                 echo 'Building..'
                 // where are we
-                pwsh.exe """
+                powershell """
                 \$location = Get-location
                 Write-Output "My location is \$location"
                 """
@@ -30,7 +30,7 @@ pipeline {
                 }
                 """
                 // copy script folders
-                pwsh.exe """
+                powershell """
                 \$builds = @(${BUILDS})
                 foreach (\$build in \$builds){
                     .\\Copy-Sources.ps1 -buildFolder \$build
@@ -75,7 +75,7 @@ pipeline {
             }
             steps {
                 echo 'Testing..'
-                    pwsh.exe """
+                    powershell """
                     \$builds = @(${BUILDS})
                     \$clusters = @(${CLUSTERS})
                     .\\PACKER-Builder.ps1 -vCenterPwd ${VCENTER_PWD} -localPwd ${LOCAL_PWD} -builds \$builds -clusters \$clusters -mode seq
@@ -89,7 +89,7 @@ pipeline {
             }
             steps {
                 echo 'Deploying...'
-                    pwsh.exe """
+                    powershell """
                     \$builds = @(${BUILDS})
                     \$clusters = @(${CLUSTERS})
                     .\\PACKER-Builder.ps1 -vCenterPwd ${VCENTER_PWD} -localPwd ${LOCAL_PWD} -builds \$builds -clusters \$clusters -deploy -mode par
@@ -106,7 +106,7 @@ pipeline {
     }
     post {
         always {
-            pwsh.exe 'Get-Process *packer* | Stop-Process -Force'
+            powershell 'Get-Process *packer* | Stop-Process -Force'
         }
     }
 }
