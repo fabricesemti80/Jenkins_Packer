@@ -16,7 +16,6 @@ pipeline {
             steps {
                 echo 'Building..'
                 // where are we
-                cmd 'echo %path%'
                 pwsh """
                 \$location = Get-location
                 Write-Output "My location is \$location"
