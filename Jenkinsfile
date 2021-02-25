@@ -16,7 +16,7 @@ pipeline {
             steps {
                 echo 'Building..'
                 // where are we
-                powershell """
+                pwsh """
                 \$location = Get-location
                 Write-Output "My location is \$location"
                 """
@@ -30,7 +30,7 @@ pipeline {
                 }
                 """
                 // copy script folders
-                powershell """
+                pwsh """
                 \$builds = @(${BUILDS})
                 foreach (\$build in \$builds){
                     .\\Copy-Sources.ps1 -buildFolder \$build
