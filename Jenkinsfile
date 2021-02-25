@@ -16,6 +16,7 @@ pipeline {
             steps {
                 echo 'Building..'
                 // where are we
+                cmd 'echo %path%'
                 powershell """
                 \$location = Get-location
                 Write-Output "My location is \$location"
