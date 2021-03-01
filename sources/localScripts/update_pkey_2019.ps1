@@ -8,28 +8,15 @@ if ($edition -like '*2019*') {
     Write-Output 'Changing product key to MAK'
     $computer = Get-Content env:computername
 
-    $key = '7FDQQ-NJWP6-YFXJ8-HDC9V-MBKRD'
+    $key = 'N69G4-B89J2-4G8F4-WWYCC-J464C' # evaluation - https://docs.microsoft.com/en-us/answers/questions/58587/windows-server-2019-activation-from-evaluation.html
+    # $key = 'NR8HF-4K9W8-F7PHW-XMWVW-9TRBQ' # xma
+    # $key = '7FDQQ-NJWP6-YFXJ8-HDC9V-MBKRD' # westcoast
 
     $service = Get-WmiObject -Query 'select * from SoftwareLicensingService' -ComputerName $computer
 
     $service.InstallProductKey($key)
 
     $service.RefreshLicenseStatus()
-    # # $cName = hostname
-    
-    # # export pre-aut info
-    # # cscript C:\Windows\System32\slmgr.vbs /dli > $('c:\' + $cName + '_pre_activation.txt')
-    # # remove KMS
-    # Write-Host ''
-    # Write-Output 'Removing KMS product key'
-    # slmgr /upk
-    # Start-Sleep -Seconds 30
-    # # add MAK
-    # Write-Output 'Applying MAK key'
-    # slmgr /ipk 7FDQQ-NJWP6-YFXJ8-HDC9V-MBKRD
-    # Write-Output 'Product Key pudated'
-    # Write-Host ''
-    # #     cscript C:\Windows\System32\slmgr.vbs /dli > $('c:\' + $cName + '_post_activation.txt')
 }
 
 Write-Host 'Product key updated'
