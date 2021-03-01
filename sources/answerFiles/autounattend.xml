@@ -91,7 +91,8 @@
                 <!-- Privacy settings -->
                 <ProtectYourPC>3</ProtectYourPC>
             </OOBE>
-            <TimeZone>Coordinated Universal Time</TimeZone>
+            <TimeZone>GMT Standard Time</TimeZone>
+            <!-- <TimeZone>Coordinated Universal Time</TimeZone> -->
             <UserAccounts>
                 <LocalAccounts>
                     <LocalAccount wcm:action="add">
