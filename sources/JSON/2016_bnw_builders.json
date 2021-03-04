@@ -8,8 +8,12 @@
             "datacenter": "{{user `vsphere-datacenter`}}",
             "datastore": "{{user `vsphere-datastore`}}",
             "disk_controller_type": "pvscsi",
-            "disk_size": "{{user `vm-disk-size`}}",
-            "disk_thin_provisioned": true,
+            "storage": [
+                {
+                    "disk_size": "{{user `vm-disk-size`}}",
+                    "disk_thin_provisioned": true
+                }
+            ],
             "floppy_files": [
                 "./remoteScripts/",
                 "./answerFiles/"
@@ -22,8 +26,12 @@
                 "[BN001-Local-DataStore01] contentlib-a036a42c-4504-44db-9d1a-3e9550954bf7/91e7ea7f-4173-4593-82de-c1dc4a9e07e7/en_windows_server_2016_updated_feb_2018_x64_dvd_11636692_46762c89-bddd-4c54-9400-e386f25cd379.iso",
                 "[BN001-Local-DataStore01] contentlib-a036a42c-4504-44db-9d1a-3e9550954bf7/5bd0d88d-9817-4c54-ae04-95be5e9212b9/VMware-Tools-Windows-11_0_1-14773994_a816dc3a-6df1-42ff-9332-e7fcd8829d88.iso"
             ],
-            "network": "{{user `vm-network`}}",
-            "network_card": "vmxnet3",
+            "network_adapters": [
+                {
+                    "network": "{{user `vm-network`}}",
+                    "network_card": "vmxnet3"
+                }
+            ],
             "notes": "{{user `vm-note`}}",
             "password": "{{user `vsphere-password`}}",
             "RAM": "{{user `vm-mem-size`}}",
