@@ -18,6 +18,12 @@
         },
         {
             "scripts": [
+                "./localScripts/patch_windows_os.ps1"
+            ],
+            "type": "powershell"
+        },
+        {
+            "scripts": [
                 "./localScripts/set-sysprep.ps1"
             ],
             "type": "powershell"
