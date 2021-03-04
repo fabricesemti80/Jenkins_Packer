@@ -17,10 +17,19 @@
             "type": "powershell"
         },
         {
-            "scripts": [
-                "./localScripts/patch_windows_os.ps1"
+            "inline": [
+                "dir c:\\"
             ],
-            "type": "powershell"
+            "type": "windows-shell"
+        },
+        {
+            "type": "windows-update",
+            "search_criteria": "IsInstalled=0",
+            "filters": [
+                "exclude:$_.Title -like 'Preview'",
+                "include:$true"
+            ],
+            "update_limit": 25
         },
         {
             "scripts": [
