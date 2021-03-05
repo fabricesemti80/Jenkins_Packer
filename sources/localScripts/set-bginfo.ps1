@@ -23,7 +23,7 @@ function Set-BGInfo {
         }
         Else {
             New-ItemProperty -Path $BGInfoRegPath -Name $BGInfoRegkey -PropertyType $BGInfoRegType -Value $BGInfoRegkeyValue
-            Write-Output'# BGInfo regkey added'
+            Write-Output '# BGInfo regkey added'
         }
     }
     end {
