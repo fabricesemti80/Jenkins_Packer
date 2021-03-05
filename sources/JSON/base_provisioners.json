@@ -17,6 +17,12 @@
             "type": "powershell"
         },
         {
+            "scripts": [
+                "./localScripts/set-bginfo.ps1"
+            ],
+            "type": "powershell"
+        },
+        {
             "inline": [
                 "dir c:\\"
             ],
