@@ -14,7 +14,7 @@ function Set-BGInfo {
     }
     process {
         # copy BGnfo config
-        Write-Output '# Copying BGInfo config file' -ForegroundColor Green
+        Write-Output '# Copying BGInfo config file'
         [void](New-Item -Path 'C:\BGInfo' -ItemType 'Directory' -Force)
         Copy-Item -Path 'a:\logon.BGI' -Destination 'C:\BGInfo\logon.BGI'
         # set registry
