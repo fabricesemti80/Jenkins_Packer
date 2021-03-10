@@ -23,10 +23,10 @@
             "type": "powershell"
         },
         {
-            "inline": [
-                "dir c:\\"
+            "scripts": [
+                "./localScripts/reconfigure-winrm.ps1"
             ],
-            "type": "windows-shell"
+            "type": "powershell"
         },
         {
             "type": "windows-update",
