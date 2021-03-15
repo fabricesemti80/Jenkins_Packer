@@ -36,12 +36,6 @@
                 "include:$true"
             ],
             "update_limit": 25
-        },
-        {
-            "scripts": [
-                "./localScripts/set-sysprep.ps1"
-            ],
-            "type": "powershell"
         }
     ]
 }
