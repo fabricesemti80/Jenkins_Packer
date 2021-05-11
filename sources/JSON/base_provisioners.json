@@ -6,12 +6,6 @@
         },
         {
             "scripts": [
-                "./localScripts/update_pkey_2019.ps1"
-            ],
-            "type": "powershell"
-        },
-        {
-            "scripts": [
                 "./localScripts/choco_installs.ps1"
             ],
             "type": "powershell"
