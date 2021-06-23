@@ -11,7 +11,7 @@ pipeline {
         stage('Build') {
             // here we create the build environment, preparing the work files for each selectd build
             options {
-                timeout(time: 1, unit: 'HOURS')
+                timeout(time: 3, unit: 'HOURS')
             }
             steps {
                 echo 'Building..'
